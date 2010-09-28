@@ -22,7 +22,10 @@ public class SearchIntegration extends TestCase {
 			.type(SearchType.RESTAURANT).where("90069").build();
 		SearchResults results = null;
 		try {
+			long start = System.currentTimeMillis();
 			results = search.locations(searchProxy);
+			long end = System.currentTimeMillis();
+			log.trace(String.format("Location search took %s ms", end - start));
 		} catch (WebApplicationException e) {
 			log(log, e);
 			fail();
@@ -105,10 +108,6 @@ public class SearchIntegration extends TestCase {
 	}
 	
 	private void log(Log log, WebApplicationException e) throws Exception {
-		System.out.println("GARY1" + e.toString());
-		System.out.println("GARY2" + e.getResponse());
-		System.out.println("GARY3" + e.getResponse().getStatus());
-		System.out.println("GARY4" + e.getResponse().getEntity());
 		Response response = e.getResponse();
 		log.error(response);
 	}
