@@ -24,6 +24,8 @@ public class Location implements Serializable {
 	private Boolean featured = null;
 	@XmlElement(name="name",required=true)
 	private String name = null;
+	@XmlElement(name="address",required=true)
+	private Address address = null;
 	@XmlElement(name="neighborhood")
 	private String neighborhood = null;
 	@XmlElement(name="latitude",required=true)
@@ -66,6 +68,12 @@ public class Location implements Serializable {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	public String getNeighborhood() {
 		return neighborhood;

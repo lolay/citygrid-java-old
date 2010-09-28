@@ -53,6 +53,7 @@ public class SearchIntegration extends TestCase {
 			assertNotNull(location.getId());
 			assertNotNull(location.getFeatured());
 			assertNotNull(location.getName());
+			assertNotNull(location.getAddress());
 			assertNotNull(location.getLatitude());
 			assertNotNull(location.getLongitude());
 			assertNotNull(location.getProfile());
@@ -159,6 +160,7 @@ public class SearchIntegration extends TestCase {
 			Location location = engagement.getLocation();
 			assertNotNull(location.getId());
 			assertNotNull(location.getName());
+			assertNotNull(location.getAddress());
 			assertNotNull(location.getLatitude());
 			assertNotNull(location.getLongitude());
 		}
