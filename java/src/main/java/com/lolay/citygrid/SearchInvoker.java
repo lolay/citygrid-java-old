@@ -1,10 +1,14 @@
 package com.lolay.citygrid;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-public class SearchInvoker {
+public class SearchInvoker implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private SearchType type = null;
 	private String what = null;
 	private Integer tag = null;
@@ -20,7 +24,6 @@ public class SearchInvoker {
 	private String publisher = null;
 	private String apiKey = null;
 	private String placement = null;
-	private SearchFormat format = null;
 
 	private SearchType getType() {
 		return type;
@@ -127,16 +130,9 @@ public class SearchInvoker {
 		this.placement = placement;
 	}
 
-	private SearchFormat getFormat() {
-		return format;
-	}
-	public void setFormat(SearchFormat format) {
-		this.format = format;
-	}
-	
-	public SearchResults locations(Search search) {
+	public SearchResults locations(SearchClient search) {
 		return search.locations(getType(), getWhat(), getTag(), getChain(), getFirst(), getWhere(), getLatitude(), getLongitude(),
-				getRadius(), getPage(), getResultsPerPage(), getSort(), getPublisher(), getApiKey(), getPlacement(), getFormat());
+				getRadius(), getPage(), getResultsPerPage(), getSort(), getPublisher(), getApiKey(), getPlacement(), SearchFormat.XML);
 	}
 
 	@Override
@@ -159,13 +155,15 @@ public class SearchInvoker {
 				.first(prototype.getFirst()).where(prototype.getWhere()).latitude(prototype.getLatitude())
 				.longitude(prototype.getLongitude()).radius(prototype.getRadius()).page(prototype.getPage())
 				.resultsPerPage(prototype.getResultsPerPage()).sort(prototype.getSort()).publisher(prototype.getPublisher())
-				.apiKey(prototype.getApiKey()).placement(prototype.getPlacement()).format(prototype.getFormat());
+				.apiKey(prototype.getApiKey()).placement(prototype.getPlacement());
 	}
 	public static Builder builder() {
 		return new Builder();
 	}
 	
-	public static class Builder {
+	public static class Builder implements Serializable {
+		private static final long serialVersionUID = 1L;
+
 		private SearchInvoker instance = new SearchInvoker();
 		private Builder() { }
 		
@@ -244,15 +242,7 @@ public class SearchInvoker {
 			return this;
 		}
 		
-		public Builder format(SearchFormat format) {
-			instance.setFormat(format);
-			return this;
-		}
-		
 		public SearchInvoker build() {
-			if (instance.getFormat() == null) {
-				instance.setFormat(SearchFormat.XML);
-			}
 			return instance;
 		}
 
@@ -260,12 +250,10 @@ public class SearchInvoker {
 		public int hashCode() {
 			return HashCodeBuilder.reflectionHashCode(this);
 		}
-
 		@Override
 		public boolean equals(Object obj) {
 		   return EqualsBuilder.reflectionEquals(this, obj);
 		}
-
 		@Override
 		public String toString() {
 		   return ToStringBuilder.reflectionToString(this);

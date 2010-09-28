@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/search")
 @Consumes(MediaType.WILDCARD)
 @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
-public interface Search {
+public interface SearchClient {
 	public static final String TYPE = "type";
 	public static final String WHAT = "what";
 	public static final String TAG = "tag";

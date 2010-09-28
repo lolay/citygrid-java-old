@@ -2,11 +2,11 @@ package com.lolay.citygrid;
 
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 
-public class CityGridFactory {
+public class ClientFactory {
 	private String baseUrl = null;
-	private Search search = null;
+	private SearchClient search = null;
 	
-	public CityGridFactory(String baseUrl) {
+	public ClientFactory(String baseUrl) {
 		this.baseUrl = baseUrl;
 	}
 
@@ -14,9 +14,9 @@ public class CityGridFactory {
 		return JAXRSClientFactory.create(baseUrl, type);
 	}
 	
-	public synchronized Search getSearch() {
+	public synchronized SearchClient getSearch() {
 		if (search == null) {
-			search = getResource(Search.class);
+			search = getResource(SearchClient.class);
 		}
 		return search;
 	}
