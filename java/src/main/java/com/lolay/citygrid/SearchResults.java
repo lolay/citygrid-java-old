@@ -35,6 +35,8 @@ public class SearchResults implements Serializable {
 	private List<Region> regions = null;
 	@XmlElement(name="location")
 	private List<Location> locations = null;
+	@XmlElement(name="engagement")
+	private List<Engagement> engagements = null;
 	@XmlElement(name="histogram")
 	private List<Histogram> histograms = null;
 	
@@ -86,6 +88,12 @@ public class SearchResults implements Serializable {
 	public void setLocations(List<Location> locations) {
 		this.locations = locations;
 	}	
+	public List<Engagement> getEngagements() {
+		return engagements;
+	}
+	public void setEngagements(List<Engagement> engagements) {
+		this.engagements = engagements;
+	}
 	public List<Histogram> getHistograms() {
 		return histograms;
 	}

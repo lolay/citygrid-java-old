@@ -27,6 +27,8 @@ public interface SearchClient {
 	public static final String API_KEY = "api_key";
 	public static final String FORMAT = "format";
 	public static final String PLACEMENT = "placement";
+	public static final String FROM = "from";
+	public static final String TO = "to";
 	
 	@GET
 	@Path("/locations")
@@ -40,6 +42,26 @@ public interface SearchClient {
 			@QueryParam(LATITUDE) Double latitude,
 			@QueryParam(LONGITUDE) Double longitude,
 			@QueryParam(RADIUS) Float radius,
+			@QueryParam(PAGE) Integer page,
+			@QueryParam(RESULTS_PER_PAGE) Integer resultsPerPage,
+			@QueryParam(SORT) SearchSort sort,
+			@QueryParam(PUBLISHER) String publisher,
+			@QueryParam(API_KEY) String apiKey,
+			@QueryParam(PLACEMENT) String placement,
+			@QueryParam(FORMAT) SearchFormat format);
+	
+	@GET
+	@Path("/events")
+	public SearchResults events(
+			@QueryParam(TYPE) SearchType type,
+			@QueryParam(WHAT) String what,
+			@QueryParam(FIRST) Character first,
+			@QueryParam(WHERE) String where,
+			@QueryParam(LATITUDE) Double latitude,
+			@QueryParam(LONGITUDE) Double longitude,
+			@QueryParam(RADIUS) Float radius,
+			@QueryParam(FROM) String from,
+			@QueryParam(TO) String to,
 			@QueryParam(PAGE) Integer page,
 			@QueryParam(RESULTS_PER_PAGE) Integer resultsPerPage,
 			@QueryParam(SORT) SearchSort sort,

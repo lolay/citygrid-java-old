@@ -18,6 +18,8 @@ public class SearchInvoker implements Serializable {
 	private Double latitude = null;
 	private Double longitude = null;
 	private Float radius = null;
+	private String from = null;
+	private String to = null;
 	private Integer page = null;
 	private Integer resultsPerPage = null;
 	private SearchSort sort = null;
@@ -88,6 +90,20 @@ public class SearchInvoker implements Serializable {
 		this.radius = radius;
 	}
 
+	public String getFrom() {
+		return from;
+	}
+	public void setFrom(String from) {
+		this.from = from;
+	}
+	
+	public String getTo() {
+		return to;
+	}
+	public void setTo(String to) {
+		this.to = to;
+	}
+	
 	private Integer getPage() {
 		return page;
 	}
@@ -135,6 +151,11 @@ public class SearchInvoker implements Serializable {
 				getRadius(), getPage(), getResultsPerPage(), getSort(), getPublisher(), getApiKey(), getPlacement(), SearchFormat.XML);
 	}
 
+	public SearchResults events(SearchClient search) {
+		return search.events(getType(), getWhat(), getFirst(), getWhere(), getLatitude(), getLongitude(), getRadius(), getFrom(),
+				getTo(), getPage(), getResultsPerPage(), getSort(), getPublisher(), getApiKey(), getPlacement(), SearchFormat.XML);
+	}
+
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
@@ -153,9 +174,10 @@ public class SearchInvoker implements Serializable {
 	public static Builder builder(SearchInvoker prototype) {
 		return builder().type(prototype.getType()).what(prototype.getWhat()).tag(prototype.getTag()).chain(prototype.getChain())
 				.first(prototype.getFirst()).where(prototype.getWhere()).latitude(prototype.getLatitude())
-				.longitude(prototype.getLongitude()).radius(prototype.getRadius()).page(prototype.getPage())
-				.resultsPerPage(prototype.getResultsPerPage()).sort(prototype.getSort()).publisher(prototype.getPublisher())
-				.apiKey(prototype.getApiKey()).placement(prototype.getPlacement());
+				.longitude(prototype.getLongitude()).radius(prototype.getRadius()).from(prototype.getFrom())
+				.to(prototype.getTo()).page(prototype.getPage()).resultsPerPage(prototype.getResultsPerPage())
+				.sort(prototype.getSort()).publisher(prototype.getPublisher()).apiKey(prototype.getApiKey())
+				.placement(prototype.getPlacement());
 	}
 	public static Builder builder() {
 		return new Builder();
@@ -209,6 +231,16 @@ public class SearchInvoker implements Serializable {
 		
 		public Builder radius(Float radius) {
 			instance.setRadius(radius);
+			return this;
+		}
+		
+		public Builder from(String from) {
+			instance.setFrom(from);
+			return this;
+		}
+		
+		public Builder to(String to) {
+			instance.setTo(to);
 			return this;
 		}
 		
