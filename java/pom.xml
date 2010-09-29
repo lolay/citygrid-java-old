@@ -231,5 +231,6 @@
 		<jackson.version>1.5.6</jackson.version>
 		<cxf.version>2.2.10</cxf.version>
 		<servlet.version>2.5</servlet.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 </project>
