@@ -30,6 +30,7 @@ public class SearchIntegration extends TestCase {
 	private static final Log testLocationsLog = LogFactory.getLog(SearchIntegration.class.getName() + ".testLocations");
 	private static final Log testLocationsCorrectionLog = LogFactory.getLog(SearchIntegration.class.getName() + ".testLocationsCorrection");
 	private static final Log testEventsLog = LogFactory.getLog(SearchIntegration.class.getName() + ".testEvents");
+	private static final Log testErrorsLog = LogFactory.getLog(SearchIntegration.class.getName() + ".testErrors");
 	private static final String baseUrl = "http://api.citygridmedia.com";
 	
 	public void testLocations() throws Exception {
@@ -195,6 +196,26 @@ public class SearchIntegration extends TestCase {
 				assertTrue(item.getCount() > 0);
 				assertNotNull(item.getUri());
 			}
+		}
+	}
+	
+	public void testError() throws Exception {
+		Log log = testErrorsLog;
+		log.trace("ENTER");
+		SearchClient searchProxy = new ClientFactory(baseUrl).getSearch();
+		
+		SearchInvoker search = SearchInvoker.builder().publisher("acme")
+			.type(SearchType.RESTAURANT).where("abcdefghijklmnopqrstuvwxyz").placement("junit").build();
+		try {
+			search.locations(searchProxy);
+			fail();
+		} catch (InvokerException e) {
+			assertNotNull(e.getErrorCodes());
+			assertEquals(1, e.getErrorCodes().size());
+			assertEquals(ErrorCode.GEOCODE_FAILURE, e.getErrorCodes().get(0));
+		} catch (WebApplicationException e) {
+			log(log, e);
+			fail();
 		}
 	}
 	
