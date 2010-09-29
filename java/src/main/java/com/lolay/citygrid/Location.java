@@ -37,7 +37,7 @@ public class Location implements Serializable {
 	@XmlElement(name="phonenumber")
 	private String phoneNumber = null;
 	@XmlElement(name="rating")
-	private Float rating = null;
+	private Integer rating = null;
 	@XmlElement(name="profile",required=true)
 	private URL profile = null;
 	@XmlElement(name="hasvideo",required=true)
@@ -105,10 +105,10 @@ public class Location implements Serializable {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public Float getRating() {
+	public Integer getRating() {
 		return rating;
 	}
-	public void setRating(Float rating) {
+	public void setRating(Integer rating) {
 		this.rating = rating;
 	}
 	public URL getProfile() {
