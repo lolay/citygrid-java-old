@@ -32,6 +32,23 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @XmlRootElement(name="error")
 @XmlAccessorType(value=XmlAccessType.FIELD)
 public class Error implements Serializable {
+	public static final String QUERY_UNDERSPECIFIED = "query.underspecified";
+	public static final String QUERY_TYPE_UNKNOWN = "query.type.unknown";
+	public static final String QUERY_OVERSPECIFIED = "query.overspecified";
+	public static final String GEOGRAPHY_UNDERSPECIFIED = "geography.underspecified";
+	public static final String GEOGRAPHY_OVERSPECIFIED = "geography.ovespecified";
+	public static final String RADIUS_REQUIRED = "radius.required";
+	public static final String DATE_PAST = "date.past";
+	public static final String DATE_RANGE_INCOMPLETE = "date.range.incomplete";
+	public static final String DATE_RANGE_TOO_LONG = "date.range.to.long";
+	public static final String GEOCODE_FAILURE = "geocode.failure";
+	public static final String TAG_ILLEGAL = "tag.illegal";
+	public static final String CHAIN_ILLEGAL = "chain.illegal";
+	public static final String FIRST_ILLEGAL = "first.illegal";
+	public static final String LATITUDE_ILLEGAL = "latitude.illegal";
+	public static final String RADIUS_ILLEGAL = "radius.illegal";
+	public static final String PAGE_ILLEGAL = "page.illegal";
+	
 	private static final long serialVersionUID = 1L;
 	@XmlValue
 	private String code = null;
@@ -41,6 +58,9 @@ public class Error implements Serializable {
 	}
 	public void setCode(String code) {
 		this.code = code;
+	}
+	public ErrorCode getErrorCode() {
+		return ErrorCode.fromCode(getCode());
 	}
 	
 	@Override

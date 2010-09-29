@@ -24,11 +24,15 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("/search")
 @Consumes(MediaType.WILDCARD)
 @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
 public interface SearchClient {
+	public static final Float MAX_RADIUS = 25F;
+	public static final Integer MAX_RESULTS_PER_PAGE = 50;
+	
 	public static final String TYPE = "type";
 	public static final String WHAT = "what";
 	public static final String TAG = "tag";
@@ -50,7 +54,7 @@ public interface SearchClient {
 	
 	@GET
 	@Path("/locations")
-	public SearchResults locations(
+	public Response locations(
 			@QueryParam(TYPE) SearchType type,
 			@QueryParam(WHAT) String what,
 			@QueryParam(TAG) Integer tag,
@@ -70,7 +74,7 @@ public interface SearchClient {
 	
 	@GET
 	@Path("/events")
-	public SearchResults events(
+	public Response events(
 			@QueryParam(TYPE) SearchType type,
 			@QueryParam(WHAT) String what,
 			@QueryParam(FIRST) Character first,
