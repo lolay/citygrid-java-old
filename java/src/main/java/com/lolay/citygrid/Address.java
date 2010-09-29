@@ -22,8 +22,8 @@ public class Address implements Serializable {
 	private String city = null;
 	@XmlElement(name="state")
 	private String state = null;
-	@XmlElement(name="zip")
-	private String zip = null;
+	@XmlElement(name="postalcode")
+	private String postalCode = null;
 	
 	public String getStreet() {
 		return street;
@@ -43,11 +43,11 @@ public class Address implements Serializable {
 	public void setState(String state) {
 		this.state = state;
 	}
-	public String getZip() {
-		return zip;
+	public String getPostalCode() {
+		return postalCode;
 	}
-	public void setZip(String zip) {
-		this.zip = zip;
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 
 	@Override
