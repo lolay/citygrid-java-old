@@ -24,7 +24,7 @@ public class Event implements Serializable {
 	@XmlElement(name="performances",required=true)
 	private String performances = null;
 	@XmlElement(name="userreviewcount",required=true)
-	private String reviewsCount = null;
+	private String userReviewCount = null;
 	@XmlElement(name="samplecategories")
 	private String sampleCategories = null;
 
@@ -46,11 +46,11 @@ public class Event implements Serializable {
 	public void setPerformances(String performances) {
 		this.performances = performances;
 	}
-	public String getReviewsCount() {
-		return reviewsCount;
+	public String getUserReviewCount() {
+		return userReviewCount;
 	}
-	public void setReviewsCount(String reviewsCount) {
-		this.reviewsCount = reviewsCount;
+	public void setUserReviewCount(String userReviewCount) {
+		this.userReviewCount = userReviewCount;
 	}
 	public String getSampleCategories() {
 		return sampleCategories;

@@ -32,11 +32,11 @@ public class SearchIntegration extends TestCase {
 			fail();
 		}
 		assertNotNull(results);
-		assertNotNull(results.getTotal());
-		assertTrue(results.getTotal() > 0);
+		assertNotNull(results.getTotalHits());
+		assertTrue(results.getTotalHits() > 0);
 		assertNull(results.getDidYouMean());
 		assertEquals((Integer) 1, results.getFirst());
-		assertEquals((Integer) 20, results.getLast());
+		assertEquals((Integer) 20, results.getLastHit());
 		assertNotNull(results.getUri());
 		assertNotNull(results.getRegions());
 		assertTrue(results.getRegions().size() > 0);
@@ -44,7 +44,7 @@ public class SearchIntegration extends TestCase {
 			assertNotNull(region.getType());
 			assertNotNull(region.getLatitude());
 			assertNotNull(region.getLongitude());
-			assertNotNull(region.getRadius());
+			assertNotNull(region.getDefaultRadius());
 		}
 		
 		assertNotNull(results.getLocations());
@@ -57,9 +57,9 @@ public class SearchIntegration extends TestCase {
 			assertNotNull(location.getLatitude());
 			assertNotNull(location.getLongitude());
 			assertNotNull(location.getProfile());
-			assertNotNull(location.getVideo());
-			assertNotNull(location.getOffers());
-			assertNotNull(location.getReviewsCount());
+			assertNotNull(location.getHasVideo());
+			assertNotNull(location.getHasOffers());
+			assertNotNull(location.getUserReviewCount());
 			assertNotNull(location.getSampleCategories());
 		}
 		
@@ -95,11 +95,11 @@ public class SearchIntegration extends TestCase {
 			fail();
 		}
 		assertNotNull(results);
-		assertNotNull(results.getTotal());
-		assertEquals((Integer) 0, results.getTotal());
+		assertNotNull(results.getTotalHits());
+		assertEquals((Integer) 0, results.getTotalHits());
 		assertNotNull(results.getDidYouMean());
 		assertEquals((Integer) 1, results.getFirst());
-		assertEquals((Integer) 0, results.getLast());
+		assertEquals((Integer) 0, results.getLastHit());
 		assertNotNull(results.getUri());
 		assertNotNull(results.getRegions());
 		assertTrue(results.getRegions().size() > 0);
@@ -107,7 +107,7 @@ public class SearchIntegration extends TestCase {
 			assertNotNull(region.getType());
 			assertNotNull(region.getLatitude());
 			assertNotNull(region.getLongitude());
-			assertNotNull(region.getRadius());
+			assertNotNull(region.getDefaultRadius());
 		}
 	}
 	
@@ -129,12 +129,12 @@ public class SearchIntegration extends TestCase {
 			fail();
 		}
 		assertNotNull(results);
-		assertNotNull(results.getTotal());
-		assertTrue(results.getTotal() > 0);
+		assertNotNull(results.getTotalHits());
+		assertTrue(results.getTotalHits() > 0);
 		assertNull(results.getDidYouMean());
 		assertEquals((Integer) 1, results.getFirst());
-		assertNotNull(results.getLast());
-		assertTrue(results.getLast() > 0);
+		assertNotNull(results.getLastHit());
+		assertTrue(results.getLastHit() > 0);
 		assertNotNull(results.getUri());
 		assertNotNull(results.getRegions());
 		assertTrue(results.getRegions().size() > 0);
@@ -142,7 +142,7 @@ public class SearchIntegration extends TestCase {
 			assertNotNull(region.getType());
 			assertNotNull(region.getLatitude());
 			assertNotNull(region.getLongitude());
-			assertNotNull(region.getRadius());
+			assertNotNull(region.getDefaultRadius());
 		}
 		
 		assertNull(results.getLocations());
@@ -155,7 +155,7 @@ public class SearchIntegration extends TestCase {
 			assertNotNull(event.getId());
 			assertNotNull(event.getName());
 			assertNotNull(event.getPerformances());
-			assertNotNull(event.getReviewsCount());
+			assertNotNull(event.getUserReviewCount());
 			
 			Location location = engagement.getLocation();
 			assertNotNull(location.getId());

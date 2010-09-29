@@ -24,7 +24,7 @@ public class Region implements Serializable {
 	@XmlElement(name="longitude",required=true)
 	private Double longitude = null;
 	@XmlElement(name="defaultradius",required=true)
-	private Float radius = null;
+	private Float defaultRadius = null;
 	
 	public String getType() {
 		return type;
@@ -44,11 +44,11 @@ public class Region implements Serializable {
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
-	public Float getRadius() {
-		return radius;
+	public Float getDefaultRadius() {
+		return defaultRadius;
 	}
-	public void setRadius(Float radius) {
-		this.radius = radius;
+	public void setDefaultRadius(Float defaultRadius) {
+		this.defaultRadius = defaultRadius;
 	}
 
 	@Override

@@ -41,11 +41,11 @@ public class Location implements Serializable {
 	@XmlElement(name="profile",required=true)
 	private URL profile = null;
 	@XmlElement(name="hasvideo",required=true)
-	private Boolean video = null;
+	private Boolean hasVideo = null;
 	@XmlElement(name="hasoffers",required=true)
-	private Boolean offers = null;
+	private Boolean hasOffers = null;
 	@XmlElement(name="userreviewcount",required=true)
-	private Integer reviewsCount = null;
+	private Integer userReviewCount = null;
 	@XmlElement(name="samplecategories",required=true)
 	private String sampleCategories = null;
 	@XmlElement(name="tagline")
@@ -117,23 +117,23 @@ public class Location implements Serializable {
 	public void setProfile(URL profile) {
 		this.profile = profile;
 	}
-	public Boolean getVideo() {
-		return video;
+	public Boolean getHasVideo() {
+		return hasVideo;
 	}
-	public void setVideo(Boolean video) {
-		this.video = video;
+	public void setHasVideo(Boolean hasVideo) {
+		this.hasVideo = hasVideo;
 	}
-	public Boolean getOffers() {
-		return offers;
+	public Boolean getHasOffers() {
+		return hasOffers;
 	}
-	public void setOffers(Boolean offers) {
-		this.offers = offers;
+	public void setHasOffers(Boolean hasOffers) {
+		this.hasOffers = hasOffers;
 	}
-	public Integer getReviewsCount() {
-		return reviewsCount;
+	public Integer getUserReviewCount() {
+		return userReviewCount;
 	}
-	public void setReviewsCount(Integer reviewsCount) {
-		this.reviewsCount = reviewsCount;
+	public void setUserReviewCount(Integer userReviewCount) {
+		this.userReviewCount = userReviewCount;
 	}
 	public String getSampleCategories() {
 		return sampleCategories;

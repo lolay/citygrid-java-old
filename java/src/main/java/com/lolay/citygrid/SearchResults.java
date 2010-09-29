@@ -22,11 +22,11 @@ public class SearchResults implements Serializable {
 	@XmlAttribute(name="queryid")
 	private String queryId = null;
 	@XmlAttribute(name="firsthit",required=true)
-	private Integer first = null;
+	private Integer firstHit = null;
 	@XmlAttribute(name="lasthit",required=true)
-	private Integer last = null;
+	private Integer lastHit = null;
 	@XmlAttribute(name="totalhits",required=true)
-	private Integer total = null;
+	private Integer totalHits = null;
 	@XmlElement(name="uri",required=true)
 	private URI uri = null;
 	@XmlElement(name="didyoumean")
@@ -47,22 +47,22 @@ public class SearchResults implements Serializable {
 		this.queryId = queryId;
 	}
 	public Integer getFirst() {
-		return first;
+		return firstHit;
 	}
-	public void setFirst(Integer first) {
-		this.first = first;
+	public void setFirstHit(Integer firstHit) {
+		this.firstHit = firstHit;
 	}
-	public Integer getLast() {
-		return last;
+	public Integer getLastHit() {
+		return lastHit;
 	}
-	public void setLast(Integer last) {
-		this.last = last;
+	public void setLastHit(Integer lastHit) {
+		this.lastHit = lastHit;
 	}
-	public Integer getTotal() {
-		return total;
+	public Integer getTotalHits() {
+		return totalHits;
 	}
-	public void setTotal(Integer total) {
-		this.total = total;
+	public void setTotal(Integer totalHits) {
+		this.totalHits = totalHits;
 	}
 	public URI getUri() {
 		return uri;
