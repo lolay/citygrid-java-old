@@ -18,18 +18,13 @@
  */
 package com.lolay.citygrid;
 
-import java.io.InputStream;
 import java.io.Serializable;
-
-import javax.ws.rs.core.Response;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-public class SearchInvoker implements Serializable {
+public class SearchInvoker extends BaseInvoker {
 	private static final long serialVersionUID = 1L;
 
 	private SearchType type = null;
@@ -170,56 +165,13 @@ public class SearchInvoker implements Serializable {
 	}
 
 	public SearchResults locations(SearchClient search) throws InvokerException {
-		return parseResults(search.locations(getType(), getWhat(), getTag(), getChain(), getFirst(), getWhere(), getLatitude(), getLongitude(),
-				getRadius(), getPage(), getResultsPerPage(), getSort(), getPublisher(), getApiKey(), getPlacement(), SearchFormat.XML));
+		return parseResults(SearchResults.class, search.locations(getType(), getWhat(), getTag(), getChain(), getFirst(), getWhere(), getLatitude(), getLongitude(),
+				getRadius(), getPage(), getResultsPerPage(), getSort(), getPublisher(), getApiKey(), getPlacement(), Format.XML));
 	}
 
 	public SearchResults events(SearchClient search) throws InvokerException {
-		return parseResults(search.events(getType(), getWhat(), getFirst(), getWhere(), getLatitude(), getLongitude(), getRadius(), getFrom(),
-				getTo(), getPage(), getResultsPerPage(), getSort(), getPublisher(), getApiKey(), getPlacement(), SearchFormat.XML));
-	}
-	
-	private static SearchResults parseResults(Response response) throws InvokerException {
-		if (Response.Status.OK.getStatusCode() != response.getStatus()) {
-			throw new RuntimeException(String.format("Can only parse a 200 response, the reponse was %s", response.getStatus()));
-		}
-		
-		if (response.getEntity() instanceof SearchResults) {
-			return SearchResults.class.cast(response.getEntity());
-		} else if (response.getEntity() instanceof ErrorResults) {
-			throw new InvokerException(ErrorResults.class.cast(response.getEntity()));
-		} else if (response.getEntity() instanceof InputStream) {
-			InputStream stream = InputStream.class.cast(response.getEntity());
-			Object results = null; 
-			try {
-				JAXBContext context = JAXBContext.newInstance(SearchResults.class, ErrorResults.class);
-				results = context.createUnmarshaller().unmarshal(stream);
-			} catch (JAXBException e) {
-				throw new RuntimeException("Problem unmarshalling the entity", e);
-			}
-			if (results instanceof SearchResults) {
-				return SearchResults.class.cast(results);
-			} else {
-				throw new InvokerException(ErrorResults.class.cast(results));
-			}
-		} else {
-			throw new RuntimeException(String.format("Do not know how to parse %s", response.getEntity().getClass()));
-		}
-	}
-
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-	   return EqualsBuilder.reflectionEquals(this, obj);
-	}
-
-	@Override
-	public String toString() {
-	   return ToStringBuilder.reflectionToString(this);
+		return parseResults(SearchResults.class, search.events(getType(), getWhat(), getFirst(), getWhere(), getLatitude(), getLongitude(), getRadius(), getFrom(),
+				getTo(), getPage(), getResultsPerPage(), getSort(), getPublisher(), getApiKey(), getPlacement(), Format.XML));
 	}
 	
 	public static Builder builder(SearchInvoker prototype) {

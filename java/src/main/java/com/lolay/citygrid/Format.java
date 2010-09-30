@@ -18,7 +18,7 @@
  */
 package com.lolay.citygrid;
 
-public enum SearchFormat {
+public enum Format {
 	JSON,
 	XML;
 	
