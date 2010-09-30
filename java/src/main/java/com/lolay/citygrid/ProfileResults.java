@@ -18,32 +18,31 @@
  */
 package com.lolay.citygrid;
 
-import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
+import java.io.Serializable;
 
-public class ClientFactory {
-	private String baseUrl = null;
-	private SearchClient search = null;
-	private ProfileClient profile = null;
-	
-	public ClientFactory(String baseUrl) {
-		this.baseUrl = baseUrl;
-	}
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
-	private <R> R getResource(Class<R> type) {
-		return JAXRSClientFactory.create(baseUrl, type);
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
+@XmlRootElement(name="locations")
+@XmlAccessorType(value=XmlAccessType.FIELD)
+public class ProfileResults implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
-	
-	public synchronized SearchClient getSearch() {
-		if (search == null) {
-			search = getResource(SearchClient.class);
-		}
-		return search;
+	@Override
+	public boolean equals(Object obj) {
+	   return EqualsBuilder.reflectionEquals(this, obj);
 	}
-	
-	public synchronized ProfileClient getProfile() {
-		if (profile == null) {
-			profile = getResource(ProfileClient.class);
-		}
-		return profile;
+	@Override
+	public String toString() {
+	   return ToStringBuilder.reflectionToString(this);
 	}
 }
