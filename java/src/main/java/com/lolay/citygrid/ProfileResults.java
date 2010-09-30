@@ -29,6 +29,9 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+/**
+ * @see http://developer.citygridmedia.com/docs/profile
+ */
 @XmlRootElement(name="locations")
 @XmlAccessorType(value=XmlAccessType.FIELD)
 public class ProfileResults implements Serializable {

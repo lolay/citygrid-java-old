@@ -26,6 +26,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+/**
+ * @see http://developer.citygridmedia.com/docs/search
+ * @see SearchInvoker
+ */
 @Path("/search")
 @Consumes(MediaType.WILDCARD)
 @Produces({MediaType.TEXT_XML,MediaType.TEXT_PLAIN})

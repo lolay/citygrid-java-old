@@ -32,6 +32,9 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+/**
+ * @see http://developer.citygridmedia.com/docs/search
+ */
 @XmlRootElement(name="results")
 @XmlAccessorType(value=XmlAccessType.FIELD)
 public class SearchResults implements Serializable {

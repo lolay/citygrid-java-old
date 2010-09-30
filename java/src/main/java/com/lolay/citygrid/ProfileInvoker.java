@@ -20,6 +20,10 @@ package com.lolay.citygrid;
 
 import java.io.Serializable;
 
+/**
+ * @see http://developer.citygridmedia.com/docs/profile
+ * @see ProfileClient
+ */
 public class ProfileInvoker extends BaseInvoker {
 	private static final long serialVersionUID = 1L;
 	

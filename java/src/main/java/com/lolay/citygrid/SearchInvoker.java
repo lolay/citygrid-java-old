@@ -24,6 +24,10 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+/**
+ * @see http://developer.citygridmedia.com/docs/search
+ * @see SearchClient
+ */
 public class SearchInvoker extends BaseInvoker {
 	private static final long serialVersionUID = 1L;
 
