@@ -19,7 +19,6 @@
 package com.lolay.citygrid;
 
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -47,7 +46,7 @@ public class SearchIntegration extends TestCase {
 			long end = System.currentTimeMillis();
 			log.trace(String.format("Location search took %s ms", end - start));
 		} catch (WebApplicationException e) {
-			log(log, e);
+			log.error(e.getResponse(), e);
 			fail();
 		}
 		assertNotNull(results);
@@ -110,7 +109,7 @@ public class SearchIntegration extends TestCase {
 		try {
 			results = search.locations(searchProxy);
 		} catch (WebApplicationException e) {
-			log(log, e);
+			log.error(e.getResponse(), e);
 			fail();
 		}
 		assertNotNull(results);
@@ -144,7 +143,7 @@ public class SearchIntegration extends TestCase {
 			long end = System.currentTimeMillis();
 			log.trace(String.format("Events search took %s ms", end - start));
 		} catch (WebApplicationException e) {
-			log(log, e);
+			log.error(e.getResponse(), e);
 			fail();
 		}
 		assertNotNull(results);
@@ -214,13 +213,8 @@ public class SearchIntegration extends TestCase {
 			assertEquals(1, e.getErrorCodes().size());
 			assertEquals(ErrorCode.GEOCODE_FAILURE, e.getErrorCodes().get(0));
 		} catch (WebApplicationException e) {
-			log(log, e);
+			log.error(e.getResponse(), e);
 			fail();
 		}
-	}
-	
-	private void log(Log log, WebApplicationException e) throws Exception {
-		Response response = e.getResponse();
-		log.error(response);
 	}
 }
