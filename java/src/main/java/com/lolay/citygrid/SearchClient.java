@@ -28,7 +28,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/search")
 @Consumes(MediaType.WILDCARD)
-@Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
+@Produces({MediaType.TEXT_XML,MediaType.TEXT_PLAIN})
 public interface SearchClient {
 	public static final Float MAX_RADIUS = 25F;
 	public static final Integer MAX_RESULTS_PER_PAGE = 50;
@@ -70,7 +70,7 @@ public interface SearchClient {
 			@QueryParam(PUBLISHER) String publisher,
 			@QueryParam(API_KEY) String apiKey,
 			@QueryParam(PLACEMENT) String placement,
-			@QueryParam(FORMAT) SearchFormat format);
+			@QueryParam(FORMAT) Format format);
 	
 	@GET
 	@Path("/events")
@@ -90,5 +90,5 @@ public interface SearchClient {
 			@QueryParam(PUBLISHER) String publisher,
 			@QueryParam(API_KEY) String apiKey,
 			@QueryParam(PLACEMENT) String placement,
-			@QueryParam(FORMAT) SearchFormat format);
+			@QueryParam(FORMAT) Format format);
 }
