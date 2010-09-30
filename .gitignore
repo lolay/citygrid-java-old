@@ -1,8 +1,6 @@
-**/build
-**/*.xcodeproj/*.pbxuser
-**/*.xcodeproj/*.perspectivev3
-**/target*
-**/bin
-**/.classpath
-**/.project
-**/.settings
+build
+target*
+bin
+.classpath
+.project
+.settings
