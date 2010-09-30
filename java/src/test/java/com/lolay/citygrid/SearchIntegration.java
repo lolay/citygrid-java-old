@@ -67,7 +67,7 @@ public class SearchIntegration extends TestCase {
 		
 		assertNotNull(results.getLocations());
 		assertTrue(results.getLocations().size() > 0);
-		for (Location location : results.getLocations()) {
+		for (SearchLocation location : results.getLocations()) {
 			assertNotNull(location.getId());
 			assertNotNull(location.getFeatured());
 			assertNotNull(location.getName());
@@ -175,7 +175,7 @@ public class SearchIntegration extends TestCase {
 			assertNotNull(event.getPerformances());
 			assertNotNull(event.getUserReviewCount());
 			
-			Location location = engagement.getLocation();
+			EngagementLocation location = engagement.getLocation();
 			assertNotNull(location.getId());
 			assertNotNull(location.getName());
 			assertNotNull(location.getAddress());

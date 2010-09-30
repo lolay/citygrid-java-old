@@ -36,7 +36,7 @@ public class Engagement implements Serializable {
 	@XmlElement(name="event",required=true)
 	private Event event = null;
 	@XmlElement(name="location",required=true)
-	private Location location = null;
+	private EngagementLocation location = null;
 
 	public Event getEvent() {
 		return event;
@@ -44,10 +44,10 @@ public class Engagement implements Serializable {
 	public void setEvent(Event event) {
 		this.event = event;
 	}
-	public Location getLocation() {
+	public EngagementLocation getLocation() {
 		return location;
 	}
-	public void setLocation(Location location) {
+	public void setLocation(EngagementLocation location) {
 		this.location = location;
 	}
 	

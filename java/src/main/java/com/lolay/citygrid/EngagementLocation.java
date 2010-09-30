@@ -22,6 +22,7 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -29,21 +30,53 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-@XmlRootElement(name="locations")
+@XmlRootElement(name="location")
 @XmlAccessorType(value=XmlAccessType.FIELD)
-public class ProfileResults implements Serializable {
+public class EngagementLocation implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@XmlElement(name="location",required=true)
-	private ProfileLocation location = null;
-
-	public ProfileLocation getLocation() {
-		return location;
-	}
-	public void setLocation(ProfileLocation location) {
-		this.location = location;
-	}
+	@XmlAttribute(name="id",required=true)
+	private Long id = null;
+	@XmlElement(name="name",required=true)
+	private String name = null;
+	@XmlElement(name="address",required=true)
+	private Address address = null;
+	@XmlElement(name="latitude",required=true)
+	private Double latitude = null;
+	@XmlElement(name="longitude",required=true)
+	private Double longitude = null;
 	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	public Double getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+	public Double getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);

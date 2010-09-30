@@ -46,5 +46,7 @@ public class ProfileIntegration extends TestCase {
 			fail();
 		}
 		assertNotNull(results);
+		ProfileLocation location = results.getLocation();
+		assertNotNull(location);
 	}
 }

@@ -33,7 +33,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 @XmlRootElement(name="location")
 @XmlAccessorType(value=XmlAccessType.FIELD)
-public class Location implements Serializable {
+public class SearchLocation implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@XmlAttribute(name="id",required=true)
