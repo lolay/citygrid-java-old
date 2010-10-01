@@ -48,6 +48,7 @@ public interface ProfileClient {
 	public static final String PLACEMENT = "placement";
 	public static final String CLIENT_IP = "client_ip";
 	public static final String FORMAT = "format";
+	public static final String NOLOG = "nolog";
 
 	@GET
 	public Response profile(
@@ -61,5 +62,6 @@ public interface ProfileClient {
 			@QueryParam(REVIEW_COUNT) Integer reviewCount,
 			@QueryParam(PLACEMENT) String placement,
 			@QueryParam(CLIENT_IP) String clientIp,
-			@QueryParam(FORMAT) Format format);
+			@QueryParam(FORMAT) Format format,
+			@QueryParam(NOLOG) Integer noLog);
 }

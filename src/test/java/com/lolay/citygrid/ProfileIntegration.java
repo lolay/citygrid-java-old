@@ -33,7 +33,7 @@ public class ProfileIntegration extends TestCase {
 		
 		ProfileClient client = new ClientFactory(baseUrl).getProfile();
 		ProfileInvoker invoker = ProfileInvoker.builder().listingId(1).clientIp("127.0.0.1")
-			.publisher("acme").placement("junit").build();
+			.publisher("acme").placement("junit").noLog(1).build();
 		
 		ProfileResults results = null;
 		try {

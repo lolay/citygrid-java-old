@@ -27,16 +27,17 @@ import java.io.Serializable;
 public class ProfileInvoker extends BaseInvoker {
 	private static final long serialVersionUID = 1L;
 	
-	private Integer listingId;
-	private Integer infoUsaId;
-	private String phone;
-	private String publisher;
-	private String apiKey;
-	private Boolean customerOnly;
-	private Boolean allResults;
-	private Integer reviewCount;
-	private String placement;
-	private String clientIp;
+	private Integer listingId = null;
+	private Integer infoUsaId = null;
+	private String phone = null;
+	private String publisher = null;
+	private String apiKey = null;
+	private Boolean customerOnly = null;
+	private Boolean allResults = null;
+	private Integer reviewCount = null;
+	private String placement = null;
+	private String clientIp = null;
+	private Integer noLog = null;
 	
 	public Integer getListingId() {
 		return listingId;
@@ -98,11 +99,16 @@ public class ProfileInvoker extends BaseInvoker {
 	public void setClientIp(String clientIp) {
 		this.clientIp = clientIp;
 	}
-
+	public Integer getNoLog() {
+		return noLog;
+	}
+	public void setNoLog(Integer noLog) {
+		this.noLog = noLog;
+	}
 	public ProfileResults profile(ProfileClient client) throws InvokerException {
 		return parseResults(ProfileResults.class, client.profile(getListingId(), getInfoUsaId(),
 			getPhone(), getPublisher(), getApiKey(), getCustomerOnly(), getAllResults(),
-			getReviewCount(), getPlacement(), getClientIp(), Format.XML));
+			getReviewCount(), getPlacement(), getClientIp(), Format.XML, getNoLog()));
 	}
 	
 	public static Builder builder(ProfileInvoker prototype) {
@@ -110,7 +116,7 @@ public class ProfileInvoker extends BaseInvoker {
 			.phone(prototype.getPhone()).publisher(prototype.getPublisher())
 			.apiKey(prototype.getApiKey()).customerOnly(prototype.getCustomerOnly())
 			.allResults(prototype.getAllResults()).reviewCount(prototype.getReviewCount())
-			.placement(prototype.getPlacement()).clientIp(prototype.getClientIp());
+			.placement(prototype.getPlacement()).clientIp(prototype.getClientIp()).noLog(prototype.getNoLog());
 	}
 	public static Builder builder() {
 		return new Builder();
@@ -169,6 +175,11 @@ public class ProfileInvoker extends BaseInvoker {
 		
 		public Builder clientIp(String clientIp) {
 			instance.setClientIp(clientIp);
+			return this;
+		}
+		
+		public Builder noLog(Integer noLog) {
+			instance.setNoLog(noLog);
 			return this;
 		}
 		
