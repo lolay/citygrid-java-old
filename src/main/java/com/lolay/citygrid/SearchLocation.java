@@ -37,7 +37,7 @@ public class SearchLocation implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@XmlAttribute(name="id",required=true)
-	private Long id = null;
+	private Integer id = null;
 	@XmlElement(name="featured",required=true)
 	private Boolean featured = null;
 	@XmlElement(name="name",required=true)
@@ -69,10 +69,10 @@ public class SearchLocation implements Serializable {
 	@XmlElement(name="tagline")
 	private String tagline = null;
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public Boolean getFeatured() {
