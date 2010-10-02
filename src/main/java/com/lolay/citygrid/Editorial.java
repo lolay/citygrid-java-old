@@ -34,6 +34,8 @@ public class Editorial implements Serializable {
 	private String editorialTitle = null;
 	@XmlElement(name="editorial_author",required=true)
 	private String editorialAuthor = null;
+	@XmlElement(name="editorial_review",required=true)
+	private String editorialReview = null;
 	@XmlElement(name="pros")
 	private String pros = null;
 	@XmlElement(name="cons")
@@ -42,7 +44,7 @@ public class Editorial implements Serializable {
 	private Date editorialDate = null;
 	@XmlElement(name="review_rating",required=true)
 	@XmlJavaTypeAdapter(value=ReviewRatingAdapter.class)
-	private Integer review_rating = null;
+	private Integer reviewRating = null;
 	@XmlElement(name="helpfulness_total_count",required=true)
 	private Integer helpfulnessTotalCount = null;
 	@XmlElement(name="helpful_count",required=true)
@@ -92,6 +94,12 @@ public class Editorial implements Serializable {
 	public void setEditorialAuthor(String editorialAuthor) {
 		this.editorialAuthor = editorialAuthor;
 	}
+	public String getEditorialReview() {
+		return editorialReview;
+	}
+	public void setEditorialReview(String editorialReview) {
+		this.editorialReview = editorialReview;
+	}
 	public String getPros() {
 		return pros;
 	}
@@ -110,11 +118,11 @@ public class Editorial implements Serializable {
 	public void setEditorialDate(Date editorialDate) {
 		this.editorialDate = editorialDate;
 	}
-	public Integer getReview_rating() {
-		return review_rating;
+	public Integer getReviewRating() {
+		return reviewRating;
 	}
-	public void setReview_rating(Integer review_rating) {
-		this.review_rating = review_rating;
+	public void setReviewRating(Integer reviewRating) {
+		this.reviewRating = reviewRating;
 	}
 	public Integer getHelpfulnessTotalCount() {
 		return helpfulnessTotalCount;
