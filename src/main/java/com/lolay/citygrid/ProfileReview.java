@@ -2,6 +2,7 @@ package com.lolay.citygrid;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -39,7 +40,7 @@ public class ProfileReview implements Serializable {
 	@XmlElement(name="cons")
 	private String cons = null;
 	@XmlElement(name="review_date",required=true)
-	private String reviewDate = null;
+	private Date reviewDate = null;
 	@XmlElement(name="review_rating",required=true)
 	private Integer reviewRating = null;
 	@XmlElement(name="helpfulness_total_count",required=true)
@@ -109,10 +110,10 @@ public class ProfileReview implements Serializable {
 	public void setCons(String cons) {
 		this.cons = cons;
 	}
-	public String getReviewDate() {
+	public Date getReviewDate() {
 		return reviewDate;
 	}
-	public void setReviewDate(String reviewDate) {
+	public void setReviewDate(Date reviewDate) {
 		this.reviewDate = reviewDate;
 	}
 	public Integer getReviewRating() {
