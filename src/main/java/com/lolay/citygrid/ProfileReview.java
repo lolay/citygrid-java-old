@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -42,6 +43,7 @@ public class ProfileReview implements Serializable {
 	@XmlElement(name="review_date",required=true)
 	private Date reviewDate = null;
 	@XmlElement(name="review_rating",required=true)
+	@XmlJavaTypeAdapter(value=ReviewRatingAdapter.class)
 	private Integer reviewRating = null;
 	@XmlElement(name="helpfulness_total_count",required=true)
 	private Integer helpfulnessTotalCount = null;
