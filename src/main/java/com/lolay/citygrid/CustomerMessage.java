@@ -5,8 +5,9 @@ import java.net.URI;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -17,13 +18,13 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class CustomerMessage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@XmlElement(name="attribution_text")
+	@XmlAttribute(name="attribution_text")
 	private String attributionText = null;
-	@XmlElement(name="attribution_logo")
+	@XmlAttribute(name="attribution_logo")
 	private URI attributionLogo = null;
-	@XmlElement(name="attribution_source")
+	@XmlAttribute(name="attribution_source")
 	private Integer attributionSource = null;
-//	@XmlValue FIXME
+	@XmlValue
 	private String customerMessage = null;
 	
 	public String getAttributionText() {
