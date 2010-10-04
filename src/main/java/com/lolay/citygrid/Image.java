@@ -20,6 +20,7 @@ package com.lolay.citygrid;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -68,6 +69,21 @@ public class Image implements Serializable {
 	}
 	public void setImageUrl(URI imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+	public URI getThumbnailUrl() {
+		URI image = getImageUrl();
+		if (image == null) {
+			return null;
+		}
+		if (getHeight() != null && getHeight() < 100 || getWidth() != null && getWidth() < 100) {
+			return image;
+		}
+		
+		try {
+			return new URI(image.toString().replace(".", "100x100."));
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(String.format("Could not convert %s to a thumbnail with *100x100.*", image), e);
+		}
 	}
 	
 	@Override
