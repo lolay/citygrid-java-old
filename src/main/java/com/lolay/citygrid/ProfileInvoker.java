@@ -20,13 +20,18 @@ package com.lolay.citygrid;
 
 import java.io.Serializable;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @see http://developer.citygridmedia.com/docs/profile
  * @see ProfileClient
  */
 public class ProfileInvoker extends BaseInvoker {
 	private static final long serialVersionUID = 1L;
+	private static final Log log = LogFactory.getLog(ProfileInvoker.class);
 	
+	private Long warningLimit = 10000L;
 	private Integer listingId = null;
 	private Integer infoUsaId = null;
 	private String phone = null;
@@ -39,6 +44,12 @@ public class ProfileInvoker extends BaseInvoker {
 	private String clientIp = null;
 	private Integer noLog = null;
 	
+	public Long getWarningLimit() {
+		return warningLimit;
+	}
+	public void setWarningLimit(Long warningLimit) {
+		this.warningLimit = warningLimit;
+	}
 	public Integer getListingId() {
 		return listingId;
 	}
@@ -106,9 +117,24 @@ public class ProfileInvoker extends BaseInvoker {
 		this.noLog = noLog;
 	}
 	public ProfileResults profile(ProfileClient client) throws InvokerException {
-		return parseResults(ProfileResults.class, client.profile(getListingId(), getInfoUsaId(),
+		ProfileResults results;
+		
+		Long start = System.currentTimeMillis();
+
+		results = parseResults(ProfileResults.class, client.profile(getListingId(), getInfoUsaId(),
 			getPhone(), getPublisher(), getApiKey(), getCustomerOnly(), getAllResults(),
 			getReviewCount(), getPlacement(), getClientIp(), Format.XML, getNoLog()));
+		
+		Long end = System.currentTimeMillis();
+		Long diff = end - start;
+		
+		if (log.isTraceEnabled()) {
+			log.trace(String.format("CityGrid profile took %s milliseconds", diff));
+		} else if (log.isWarnEnabled() && diff > getWarningLimit()) {
+			log.warn(String.format("CityGrid profile took %s milliseconds which is longer than the threshold %s milliseconds", diff, getWarningLimit()));
+		}
+		
+		return results;
 	}
 	
 	public static Builder builder(ProfileInvoker prototype) {
@@ -127,6 +153,11 @@ public class ProfileInvoker extends BaseInvoker {
 
 		private ProfileInvoker instance = new ProfileInvoker();
 		private Builder() { }
+		
+		public Builder warningLimit(Long warningLimit) {
+			instance.setWarningLimit(warningLimit);
+			return this;
+		}
 		
 		public Builder listingId(Integer listingId) {
 			instance.setListingId(listingId);
