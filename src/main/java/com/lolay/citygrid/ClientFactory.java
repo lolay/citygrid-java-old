@@ -24,6 +24,7 @@ public class ClientFactory {
 	private String baseUrl = null;
 	private SearchClient search = null;
 	private ProfileClient profile = null;
+	private TrackingClient tracking = null;
 	
 	public ClientFactory(String baseUrl) {
 		this.baseUrl = baseUrl;
@@ -45,5 +46,12 @@ public class ClientFactory {
 			profile = getResource(ProfileClient.class);
 		}
 		return profile;
+	}
+	
+	public synchronized TrackingClient getTracking() {
+		if (tracking == null) {
+			tracking = getResource(TrackingClient.class);
+		}
+		return tracking;
 	}
 }
