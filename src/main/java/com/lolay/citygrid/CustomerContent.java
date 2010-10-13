@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -43,6 +44,7 @@ public class CustomerContent implements Serializable {
 	@XmlElement(name="bullet",required=true)
 	private List<String> bullets = null;
 	@XmlElement(name="customer_message",required=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	private URI customerMessageUrl = null;
 	
 	public CustomerMessage getCustomerMessage() {

@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -41,6 +42,7 @@ public class HistogramItem implements Serializable {
 	@XmlAttribute(name="count",required=true)
 	private Integer count = null;
 	@XmlValue
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	private URI uri = null;
 	
 	public String getName() {

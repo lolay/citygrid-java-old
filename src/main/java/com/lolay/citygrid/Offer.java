@@ -44,6 +44,7 @@ public class Offer implements Serializable {
 	@XmlElement(name="offer_description",required=true)
 	private String offerDescription = null;
 	@XmlElement(name="offer_url",required=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	private URI offerUrl = null;
 	@XmlElement(name="offer_expiration_date")
 	@XmlJavaTypeAdapter(value=DateAdapter.class)

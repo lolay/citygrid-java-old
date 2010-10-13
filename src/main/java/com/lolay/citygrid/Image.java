@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -44,6 +45,7 @@ public class Image implements Serializable {
 	@XmlElement(name="width",required=true)
 	private Integer width = null;
 	@XmlElement(name="image_url",required=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	private URI imageUrl = null;
 	
 	public ImageType getType() {

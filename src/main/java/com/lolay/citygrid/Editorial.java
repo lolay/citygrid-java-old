@@ -41,12 +41,14 @@ public class Editorial implements Serializable {
 	@XmlAttribute(name="attribution_text",required=true)
 	private String attributionText = null;
 	@XmlAttribute(name="attribution_logo",required=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	private URI attributionLogo = null;
 	@XmlAttribute(name="attribution_source",required=true)
 	private Integer attributionSource = null;
 	@XmlElement(name="editorial_id",required=true)
 	private Integer editorialId = null;
 	@XmlElement(name="editorial_url",required=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	private URI editorialUrl = null;
 	@XmlElement(name="editorial_title",required=true)
 	private String editorialTitle = null;

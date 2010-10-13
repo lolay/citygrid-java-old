@@ -41,12 +41,14 @@ public class ProfileReview implements Serializable {
 	@XmlAttribute(name="attribution_text",required=true)
 	private String attributionText = null;
 	@XmlAttribute(name="attribution_logo",required=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	private URI attributionLogo = null;
 	@XmlAttribute(name="attribution_source",required=true)
 	private Integer attributionSource = null;
 	@XmlElement(name="review_id",required=true)
 	private Integer reviewId = null;
 	@XmlElement(name="review_url",required=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	private URI reviewUrl = null;
 	@XmlElement(name="review_title",required=true)
 	private String reviewTitle = null;

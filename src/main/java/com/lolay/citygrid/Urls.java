@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -37,26 +38,37 @@ public class Urls implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@XmlElement(name="profile_url",required=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	public URI profileUrl = null;
 	@XmlElement(name="reviews_url",required=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	public URI reviewsUrl = null;
 	@XmlElement(name="video_url",required=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	public URI videoUrl = null;
 	@XmlElement(name="website_url",required=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	public URI websiteUrl = null;
 	@XmlElement(name="menu_url",required=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	public URI menuUrl = null;
 	@XmlElement(name="reservation_url",required=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	public URI reservationUrl = null;
 	@XmlElement(name="map_url",required=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	public URI mapUrl = null;
 	@XmlElement(name="send_to_friend_url",required=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	public URI sendToFriendUrl = null;
 	@XmlElement(name="email_link",required=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	public URI emailLink = null;
 	@XmlElement(name="custom_link_1",required=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	public URI customLink1 = null;
 	@XmlElement(name="custom_link_2",required=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	public URI customLink2 = null;
 	
 	public URI getProfileUrl() {

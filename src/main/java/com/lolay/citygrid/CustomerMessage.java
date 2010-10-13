@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -39,6 +40,7 @@ public class CustomerMessage implements Serializable {
 	@XmlAttribute(name="attribution_text")
 	private String attributionText = null;
 	@XmlAttribute(name="attribution_logo")
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	private URI attributionLogo = null;
 	@XmlAttribute(name="attribution_source")
 	private Integer attributionSource = null;
