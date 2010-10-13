@@ -20,6 +20,10 @@ package com.lolay.citygrid;
 
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 
+import com.lolay.citygrid.profile.ProfileClient;
+import com.lolay.citygrid.search.SearchClient;
+import com.lolay.citygrid.tracking.TrackingClient;
+
 public class ClientFactory {
 	private String baseUrl = null;
 	private SearchClient search = null;

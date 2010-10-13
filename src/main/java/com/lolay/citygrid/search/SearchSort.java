@@ -16,19 +16,17 @@
  * specific language governing permissions and limitations
  * under the License.    
  */
-package com.lolay.citygrid;
+package com.lolay.citygrid.search;
 
-import com.lolay.citygrid.search.SearchClient;
-
-import junit.framework.TestCase;
-
-public class ClientFactoryTest extends TestCase {
-	public void testSearch() throws Exception {
-		ClientFactory factory = new ClientFactory("http://api2.citygridmedia.com");
-		SearchClient search1 = factory.getSearch();
-		assertNotNull(search1);
-		SearchClient search2 = factory.getSearch();
-		assertNotNull(search2);
-		assertSame(search1, search2);
+public enum SearchSort {
+	DIST,
+	ALPHA,
+	HIGHESTRATED,
+	MOSTREVIEWED,
+	TOPMATCHES,
+	OFFERS;
+	
+	public String toString() {
+		return super.toString().toLowerCase();
 	}
 }
