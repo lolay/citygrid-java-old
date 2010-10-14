@@ -42,6 +42,7 @@ public interface SearchClient {
 	public static final String TYPE = "type";
 	public static final String WHAT = "what";
 	public static final String TAG = "tag";
+	public static final String TAGS = "tags";
 	public static final String CHAIN = "chain";
 	public static final String FIRST = "first";
 	public static final String WHERE = "where";
@@ -64,6 +65,7 @@ public interface SearchClient {
 			@QueryParam(TYPE) SearchType type,
 			@QueryParam(WHAT) String what,
 			@QueryParam(TAG) Integer tag,
+			@QueryParam(TAGS) String tags,
 			@QueryParam(CHAIN) Integer chain,
 			@QueryParam(FIRST) Character first,
 			@QueryParam(WHERE) String where,

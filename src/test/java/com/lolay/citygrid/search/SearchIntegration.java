@@ -31,6 +31,7 @@ import junit.framework.TestCase;
 
 public class SearchIntegration extends TestCase {
 	private static final Log testLocationsLog = LogFactory.getLog(SearchIntegration.class.getName() + ".testLocations");
+	private static final Log testTagsLog = LogFactory.getLog(SearchIntegration.class.getName() + ".testTags");
 	private static final Log testLocationsCorrectionLog = LogFactory.getLog(SearchIntegration.class.getName() + ".testLocationsCorrection");
 	private static final Log testEventsLog = LogFactory.getLog(SearchIntegration.class.getName() + ".testEvents");
 	private static final Log testErrorsLog = LogFactory.getLog(SearchIntegration.class.getName() + ".testErrors");
@@ -100,6 +101,27 @@ public class SearchIntegration extends TestCase {
 				assertNotNull(item.getUri());
 			}
 		}
+	}
+	
+	public void testTags() throws Exception {
+		Log log = testTagsLog;
+		log.trace("ENTER");
+		SearchClient searchProxy = new ClientFactory(baseUrl).getSearch();
+		
+		SearchInvoker search = SearchInvoker.builder().publisher("acme")
+			.what("*").addTags(1726).addTags(1722).addTags(110)
+			.where("90069").placement("junit").build();
+		SearchResults results = null;
+		try {
+			long start = System.currentTimeMillis();
+			results = search.locations(searchProxy);
+			long end = System.currentTimeMillis();
+			log.trace(String.format("Location search took %s ms", end - start));
+		} catch (WebApplicationException e) {
+			log.error(e.getResponse(), e);
+			fail();
+		}
+		assertNotNull(results);
 	}
 	
 	public void testLocationsCorrection() throws Exception {

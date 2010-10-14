@@ -19,6 +19,8 @@
 package com.lolay.citygrid.search;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -38,6 +40,7 @@ public class SearchInvoker extends BaseInvoker {
 	private SearchType type = null;
 	private String what = null;
 	private Integer tag = null;
+	private Set<Integer> tags = null;
 	private Integer chain = null;
 	private Character first = null;
 	private String where = null;
@@ -53,63 +56,70 @@ public class SearchInvoker extends BaseInvoker {
 	private String apiKey = null;
 	private String placement = null;
 
-	private SearchType getType() {
+	public SearchType getType() {
 		return type;
 	}
 	public void setType(SearchType type) {
 		this.type = type;
 	}
 
-	private String getWhat() {
+	public String getWhat() {
 		return what;
 	}
 	public void setWhat(String what) {
 		this.what = what;
 	}
 
-	private Integer getTag() {
+	public Integer getTag() {
 		return tag;
 	}
 	public void setTag(Integer tag) {
 		this.tag = tag;
 	}
 
-	private Integer getChain() {
+	public Set<Integer> getTags() {
+		return tags;
+	}
+	public void setTags(Set<Integer> tags) {
+		this.tags = tags;
+	}
+	
+	public Integer getChain() {
 		return chain;
 	}
 	public void setChain(Integer chain) {
 		this.chain = chain;
 	}
 
-	private Character getFirst() {
+	public Character getFirst() {
 		return first;
 	}
 	public void setFirst(Character first) {
 		this.first = first;
 	}
 
-	private String getWhere() {
+	public String getWhere() {
 		return where;
 	}
 	public void setWhere(String where) {
 		this.where = where;
 	}
 
-	private Double getLatitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
 	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
 
-	private Double getLongitude() {
+	public Double getLongitude() {
 		return longitude;
 	}
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 
-	private Float getRadius() {
+	public Float getRadius() {
 		return radius;
 	}
 	public void setRadius(Float radius) {
@@ -130,50 +140,68 @@ public class SearchInvoker extends BaseInvoker {
 		this.to = to;
 	}
 	
-	private Integer getPage() {
+	public Integer getPage() {
 		return page;
 	}
 	public void setPage(Integer page) {
 		this.page = page;
 	}
 
-	private Integer getResultsPerPage() {
+	public Integer getResultsPerPage() {
 		return resultsPerPage;
 	}
 	public void setResultsPerPage(Integer resultsPerPage) {
 		this.resultsPerPage = resultsPerPage;
 	}
 
-	private SearchSort getSort() {
+	public SearchSort getSort() {
 		return sort;
 	}
 	public void setSort(SearchSort sort) {
 		this.sort = sort;
 	}
 
-	private String getPublisher() {
+	public String getPublisher() {
 		return publisher;
 	}
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
 
-	private String getApiKey() {
+	public String getApiKey() {
 		return apiKey;
 	}
 	public void setApiKey(String apiKey) {
 		this.apiKey = apiKey;
 	}
 
-	private String getPlacement() {
+	public String getPlacement() {
 		return placement;
 	}
 	public void setPlacement(String placement) {
 		this.placement = placement;
 	}
+	
+	public String getTagsString() {
+		if (getTags() == null || getTags().isEmpty()) {
+			return null;
+		}
+		
+		StringBuilder builder = new StringBuilder();
+		boolean first = true;
+		for (Integer tag : getTags()) {
+			if (first) {
+				first = false;
+			} else {
+				builder.append(" ");
+			}
+			builder.append(tag);
+		}
+		return builder.toString();
+	}
 
 	public SearchResults locations(SearchClient search) throws InvokerException {
-		return parseResults(SearchResults.class, search.locations(getType(), getWhat(), getTag(), getChain(), getFirst(), getWhere(), getLatitude(), getLongitude(),
+		return parseResults(SearchResults.class, search.locations(getType(), getWhat(), getTag(), getTagsString(), getChain(), getFirst(), getWhere(), getLatitude(), getLongitude(),
 				getRadius(), getPage(), getResultsPerPage(), getSort(), getPublisher(), getApiKey(), getPlacement(), Format.XML));
 	}
 
@@ -212,6 +240,16 @@ public class SearchInvoker extends BaseInvoker {
 		
 		public Builder tag(Integer tag) {
 			instance.setTag(tag);
+			return this;
+		}
+		
+		public Builder addTags(Integer tag) {
+			Set<Integer> tags = instance.getTags();
+			if (tags == null) {
+				tags = new HashSet<Integer>(3);
+				instance.setTags(tags);
+			}
+			tags.add(tag);
 			return this;
 		}
 		
