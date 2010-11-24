@@ -84,6 +84,9 @@ public class SearchIntegration extends TestCase {
 			assertNotNull(location.getHasOffers());
 			assertNotNull(location.getUserReviewCount());
 			assertNotNull(location.getSampleCategories());
+			if (location.getId().equals(101344)) {
+				assertNotNull(location.getRating());
+			}
 		}
 		
 		assertNull(results.getEngagements());
