@@ -84,7 +84,10 @@ public class Image implements Serializable {
 		}
 		
 		try {
-			return new URI(image.toString().replace(".", "100x100."));
+			String imageString = image.toString();
+			int index = imageString.lastIndexOf(".");
+			String thumbnailString = imageString.substring(0, index) + "_100x100" + imageString.substring(index);
+			return new URI(thumbnailString);
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(String.format("Could not convert %s to a thumbnail with *100x100.*", image), e);
 		}
