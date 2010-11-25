@@ -72,6 +72,8 @@ public class SearchIntegration extends TestCase {
 		
 		assertNotNull(results.getLocations());
 		assertTrue(results.getLocations().size() > 0);
+		boolean ratingChecked = false;
+		boolean imageChecked = false;
 		for (SearchLocation location : results.getLocations()) {
 			assertNotNull(location.getId());
 			assertNotNull(location.getFeatured());
@@ -86,8 +88,15 @@ public class SearchIntegration extends TestCase {
 			assertNotNull(location.getSampleCategories());
 			if (location.getId().equals(101344)) {
 				assertNotNull(location.getRating());
+				ratingChecked = true;
+			}
+			if (location.getId().equals(101409)) {
+				assertNotNull(location.getImage());
+				imageChecked = true;
 			}
 		}
+		assertTrue(ratingChecked);
+		assertTrue(imageChecked);
 		
 		assertNull(results.getEngagements());
 		

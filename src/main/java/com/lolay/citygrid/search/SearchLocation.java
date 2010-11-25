@@ -19,7 +19,7 @@
 package com.lolay.citygrid.search;
 
 import java.io.Serializable;
-import java.net.URL;
+import java.net.URI;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -33,6 +33,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import com.lolay.citygrid.FloatIntegerAdapter;
+import com.lolay.citygrid.UriAdapter;
 
 
 @XmlRootElement(name="location")
@@ -55,14 +56,16 @@ public class SearchLocation implements Serializable {
 	@XmlElement(name="longitude",required=true)
 	private Double longitude = null;
 	@XmlElement(name="image")
-	private URL image = null;
+//	@XmlJavaTypeAdapter(value=UriAdapter.class)
+	private URI image = null;
 	@XmlElement(name="phonenumber")
 	private String phoneNumber = null;
 	@XmlElement(name="rating")
 	@XmlJavaTypeAdapter(value=FloatIntegerAdapter.class)
 	private Integer rating = null;
 	@XmlElement(name="profile",required=true)
-	private URL profile = null;
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
+	private URI profile = null;
 	@XmlElement(name="hasvideo",required=true)
 	private Boolean hasVideo = null;
 	@XmlElement(name="hasoffers",required=true)
@@ -116,10 +119,10 @@ public class SearchLocation implements Serializable {
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
-	public URL getImage() {
+	public URI getImage() {
 		return image;
 	}
-	public void setImage(URL image) {
+	public void setImage(URI image) {
 		this.image = image;
 	}
 	public String getPhoneNumber() {
@@ -134,10 +137,10 @@ public class SearchLocation implements Serializable {
 	public void setRating(Integer rating) {
 		this.rating = rating;
 	}
-	public URL getProfile() {
+	public URI getProfile() {
 		return profile;
 	}
-	public void setProfile(URL profile) {
+	public void setProfile(URI profile) {
 		this.profile = profile;
 	}
 	public Boolean getHasVideo() {
