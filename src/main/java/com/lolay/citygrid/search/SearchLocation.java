@@ -56,7 +56,7 @@ public class SearchLocation implements Serializable {
 	@XmlElement(name="longitude",required=true)
 	private Double longitude = null;
 	@XmlElement(name="image")
-//	@XmlJavaTypeAdapter(value=UriAdapter.class)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	private URI image = null;
 	@XmlElement(name="phonenumber")
 	private String phoneNumber = null;
