@@ -52,6 +52,9 @@ public class ProfileIntegration extends TestCase {
 		assertNotNull(results);
 		ProfileLocation location = results.getLocation();
 		assertNotNull(location);
+		ProfileAddress address = location.getAddress();
+		assertNotNull(address);
+		assertNotNull(address.getPostalCode());
 		// TODO add validation
 	}
 }

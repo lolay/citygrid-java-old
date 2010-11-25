@@ -40,7 +40,7 @@ public class ProfileAddress implements Serializable {
 	private String city = null;
 	@XmlElement(name="state")
 	private String state = null;
-	@XmlElement(name="postalcode")
+	@XmlElement(name="postal_code")
 	private String postalCode = null;
 	@XmlElement(name="street")
 	private String deliveryPoint = null;
