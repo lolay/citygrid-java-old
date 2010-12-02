@@ -29,7 +29,8 @@ import junit.framework.TestCase;
 
 public class PfpIntegration extends TestCase {
 	private static final Log testBannerLog = LogFactory.getLog(PfpIntegration.class.getName() + ".testBanner");
-	private static final Log testPfpLog = LogFactory.getLog(PfpIntegration.class.getName() + ".testPfp");
+	private static final Log testQueryLog = LogFactory.getLog(PfpIntegration.class.getName() + ".testQuery");
+	private static final Log testLocationLog = LogFactory.getLog(PfpIntegration.class.getName() + ".testLocation");
 	private static final String baseUrl = "http://pfp.citysearch.com";
 	
 	public void testBanner() throws Exception {
@@ -61,8 +62,8 @@ public class PfpIntegration extends TestCase {
 		}
 	}
 	
-	public void testPfp() throws Exception {
-		final Log log = testPfpLog;
+	public void testQuery() throws Exception {
+		final Log log = testQueryLog;
 		log.trace("ENTER");
 		
 		PfpClient pfpProxy = new ClientFactory(null, baseUrl).getPfp();
@@ -71,7 +72,7 @@ public class PfpIntegration extends TestCase {
 		PfpResults results = null;
 		try {
 			long start = System.currentTimeMillis();
-			results = pfp.pfp(pfpProxy);
+			results = pfp.query(pfpProxy);
 			long end = System.currentTimeMillis();
 			log.trace(String.format("PFP took %s ms", end - start));
 		} catch (WebApplicationException e) {
@@ -85,14 +86,51 @@ public class PfpIntegration extends TestCase {
 		for (PfpAd ad : results.getAds()) {
 			assertNotNull(ad.getType());
 			assertNotNull(ad.getAdDestinationUrl());
-			assertNotNull(ad.getAdImageUrl());
 			
 			if (ad.getListingId() != null) {
 				assertNotNull(ad.getId());
 				assertNotNull(ad.getName());
 				assertNotNull(ad.getLatitude());
 				assertNotNull(ad.getLongitude());
-				assertNotNull(ad.getAdImageUrl());
+				assertNotNull(ad.getNetPpe());
+			} else {
+				assertNotNull(ad.getTagline());
+				assertNotNull(ad.getDescription());
+			}
+		}
+		
+	}
+
+	public void testLocation() throws Exception {
+		final Log log = testLocationLog;
+		log.trace("ENTER");
+		
+		PfpClient pfpProxy = new ClientFactory(null, baseUrl).getPfp();
+		
+		PfpInvoker pfp = PfpInvoker.builder().addTag(1726).addTag(110).addTag(1722).latitude(34.09D).longitude(-118.3608333D).publisher("citysearch").build();
+		PfpResults results = null;
+		try {
+			long start = System.currentTimeMillis();
+			results = pfp.location(pfpProxy);
+			long end = System.currentTimeMillis();
+			log.trace(String.format("PFP location took %s ms", end - start));
+		} catch (WebApplicationException e) {
+			log.error(e.getResponse(), e);
+			fail();
+		}
+		
+		assertNotNull(results);
+		assertNotNull(results.getAds());
+		assertEquals(10, results.getAds().size());
+		for (PfpAd ad : results.getAds()) {
+			assertNotNull(ad.getType());
+			assertNotNull(ad.getAdDestinationUrl());
+			
+			if (ad.getListingId() != null) {
+				assertNotNull(ad.getId());
+				assertNotNull(ad.getName());
+				assertNotNull(ad.getLatitude());
+				assertNotNull(ad.getLongitude());
 				assertNotNull(ad.getNetPpe());
 			} else {
 				assertNotNull(ad.getTagline());

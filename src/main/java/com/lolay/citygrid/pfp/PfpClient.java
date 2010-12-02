@@ -52,14 +52,25 @@ public interface PfpClient {
 	
 	@GET
 	@Path("/pfp")
-	public Response pfp(
+	public Response query(
 			@QueryParam(WHAT) String what,
 			@QueryParam(WHERE) String where,
+			@QueryParam(TAGS) String tags,
+			@QueryParam(GEOGRAPHIES) String geographies,
+			@QueryParam(CLIENT_IP) String clientIp,
+			@QueryParam(PUBLISHER) String publisher,
+			@QueryParam(FORMAT) Format format,
+			@QueryParam(MAX) Integer max,
+			@QueryParam(PLACEMENT) String placement);
+	
+	@GET
+	@Path("/pfp/location")
+	public Response location(
+			@QueryParam(WHAT) String what,
 			@QueryParam(LATITUDE) Double latitude,
 			@QueryParam(LONGITUDE) Double longitude,
 			@QueryParam(RADIUS) Float radius,
 			@QueryParam(TAGS) String tags,
-			@QueryParam(GEOGRAPHIES) String geographies,
 			@QueryParam(CLIENT_IP) String clientIp,
 			@QueryParam(PUBLISHER) String publisher,
 			@QueryParam(FORMAT) Format format,

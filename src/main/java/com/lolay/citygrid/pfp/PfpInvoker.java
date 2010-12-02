@@ -139,11 +139,42 @@ public class PfpInvoker extends BaseInvoker {
 	public void setTags(Set<Integer> tags) {
 		this.tags = tags;
 	}
+	public String getTagsString() {
+		String tags = null;
+		if (getTags() != null && ! getTags().isEmpty()) {
+			StringBuilder builder = new StringBuilder();
+			for (Integer tag : getTags()) {
+				if (builder.length() > 0) {
+					builder.append(" ");
+				}
+				builder.append(tag);
+			}
+			tags = builder.toString();
+		}
+		return tags;
+	}
 	public Set<Integer> getGeographies() {
 		return geographies;
 	}
 	public void setGeographies(Set<Integer> geographies) {
 		this.geographies = geographies;
+	}
+	public String getGeographiesString() {
+		String geographies = null;
+		if (getGeographies() != null && ! getGeographies().isEmpty()) {
+			StringBuilder builder = new StringBuilder();
+			for (Integer geography : getGeographies()) {
+				if (builder.length() > 0) {
+					builder.append(" ");
+				}
+				builder.append(geography);
+			}
+			geographies = builder.toString();
+			if (log.isDebugEnabled()) {
+				log.debug(String.format("geographies=%s", tags));
+			}
+		}
+		return geographies;
 	}
 	
 	@Override
@@ -159,43 +190,12 @@ public class PfpInvoker extends BaseInvoker {
 	   return ToStringBuilder.reflectionToString(this);
 	}
 	
-	public PfpResults pfp(PfpClient client) throws InvokerException {
+	public PfpResults query(PfpClient client) throws InvokerException {
 		PfpResults results;
 		
 		Long start = System.currentTimeMillis();
 		
-		String tags = null;
-		if (getTags() != null && ! getTags().isEmpty()) {
-			StringBuilder builder = new StringBuilder();
-			for (Integer tag : getTags()) {
-				if (builder.length() > 0) {
-					builder.append(" ");
-				}
-				builder.append(tag);
-			}
-			tags = builder.toString();
-			if (log.isDebugEnabled()) {
-				log.debug(String.format("tags=%s", tags));
-			}
-		}
-		
-		String geographies = null;
-		if (getGeographies() != null && ! getGeographies().isEmpty()) {
-			StringBuilder builder = new StringBuilder();
-			for (Integer geography : getGeographies()) {
-				if (builder.length() > 0) {
-					builder.append(" ");
-				}
-				builder.append(geography);
-			}
-			geographies = builder.toString();
-			if (log.isDebugEnabled()) {
-				log.debug(String.format("geographies=%s", tags));
-			}
-		}
-
-		results = parseResults(PfpResults.class, client.pfp(getWhat(), getWhere(), getLatitude(), getLongitude(),
-			getRadius(), tags, geographies, getClientIp(), getPublisher(), Format.XML, getMax(), getPlacement()));
+		results = parseResults(PfpResults.class, client.query(getWhat(), getWhere(), getTagsString(), getGeographiesString(), getClientIp(), getPublisher(), Format.XML, getMax(), getPlacement()));
 		
 		Long end = System.currentTimeMillis();
 		Long diff = end - start;
@@ -204,6 +204,25 @@ public class PfpInvoker extends BaseInvoker {
 			log.trace(String.format("CityGrid PFP took %s milliseconds", diff));
 		} else if (log.isWarnEnabled() && diff > getWarningLimit()) {
 			log.warn(String.format("CityGrid PFP took %s milliseconds which is longer than the threshold %s milliseconds", diff, getWarningLimit()));
+		}
+		
+		return results;
+	}
+	
+	public PfpResults location(PfpClient client) throws InvokerException {
+		PfpResults results;
+		
+		Long start = System.currentTimeMillis();
+		
+		results = parseResults(PfpResults.class, client.location(getWhat(), getLatitude(), getLongitude(), getRadius(), getTagsString(), getClientIp(), getPublisher(), Format.XML, getMax(), getPlacement()));
+		
+		Long end = System.currentTimeMillis();
+		Long diff = end - start;
+		
+		if (log.isTraceEnabled()) {
+			log.trace(String.format("CityGrid PFP location took %s milliseconds", diff));
+		} else if (log.isWarnEnabled() && diff > getWarningLimit()) {
+			log.warn(String.format("CityGrid PFP location took %s milliseconds which is longer than the threshold %s milliseconds", diff, getWarningLimit()));
 		}
 		
 		return results;
