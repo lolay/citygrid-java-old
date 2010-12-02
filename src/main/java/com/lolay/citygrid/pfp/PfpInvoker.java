@@ -311,7 +311,7 @@ public class PfpInvoker extends BaseInvoker {
 			return this;
 		}
 		
-		public Builder addTags(Integer tag) {
+		public Builder addTag(Integer tag) {
 			Set<Integer> tags = instance.getTags();
 			if (tags == null) {
 				tags = new HashSet<Integer>(3);

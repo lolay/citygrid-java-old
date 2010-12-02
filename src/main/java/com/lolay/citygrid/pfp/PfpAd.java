@@ -78,9 +78,11 @@ public class PfpAd implements Serializable {
 	private URI adImageUrl = null;
 	@XmlElement(name="net_ppe")
 	private Float netPpe = null;
-	@XmlElement(name="net_ppe")
+	@XmlElement(name="reviews")
+	private Integer reviews = null;
+	@XmlElement(name="offers")
 	private String offers = null;
-	@XmlElement(name="net_ppe")
+	@XmlElement(name="distance")
 	private Double distance = null;
 	
 	public Integer getId() {
@@ -190,6 +192,12 @@ public class PfpAd implements Serializable {
 	}
 	public void setNetPpe(Float netPpe) {
 		this.netPpe = netPpe;
+	}
+	public Integer getReviews() {
+		return reviews;
+	}
+	public void setReviews(Integer reviews) {
+		this.reviews = reviews;
 	}
 	public String getOffers() {
 		return offers;
