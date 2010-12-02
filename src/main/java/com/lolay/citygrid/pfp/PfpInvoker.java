@@ -173,6 +173,10 @@ public class PfpInvoker extends BaseInvoker {
 				}
 				builder.append(tag);
 			}
+			tags = builder.toString();
+			if (log.isDebugEnabled()) {
+				log.debug(String.format("tags=%s", tags));
+			}
 		}
 		
 		String geographies = null;
@@ -183,6 +187,10 @@ public class PfpInvoker extends BaseInvoker {
 					builder.append(" ");
 				}
 				builder.append(geography);
+			}
+			geographies = builder.toString();
+			if (log.isDebugEnabled()) {
+				log.debug(String.format("geographies=%s", tags));
 			}
 		}
 
@@ -337,6 +345,9 @@ public class PfpInvoker extends BaseInvoker {
 		}
 		
 		public PfpInvoker build() {
+			if (log.isDebugEnabled()) {
+				log.debug(String.format("PfpInvoker=%s", instance));
+			}
 			return instance;
 		}
 
