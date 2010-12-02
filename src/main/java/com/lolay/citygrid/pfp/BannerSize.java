@@ -16,19 +16,19 @@
  * specific language governing permissions and limitations
  * under the License.    
  */
-package com.lolay.citygrid;
+package com.lolay.citygrid.pfp;
 
-import com.lolay.citygrid.search.SearchClient;
-
-import junit.framework.TestCase;
-
-public class ClientFactoryTest extends TestCase {
-	public void testSearch() throws Exception {
-		ClientFactory factory = new ClientFactory("http://api.citygridmedia.com", "http://pfp.citygridmedia.com");
-		SearchClient search1 = factory.getSearch();
-		assertNotNull(search1);
-		SearchClient search2 = factory.getSearch();
-		assertNotNull(search2);
-		assertSame(search1, search2);
+public enum BannerSize {
+	SIZE_320X50("320x50"),
+	SIZE_300X50("300x50");
+	
+	private String size = null;
+	private BannerSize(String size) {
+		this.size = size;
+	}
+	
+	@Override
+	public String toString() {
+		return size;
 	}
 }

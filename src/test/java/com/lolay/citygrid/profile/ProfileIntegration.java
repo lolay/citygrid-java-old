@@ -35,7 +35,7 @@ public class ProfileIntegration extends TestCase {
 		Log log = testProfileLog;
 		log.trace("ENTER");
 		
-		ProfileClient client = new ClientFactory(baseUrl).getProfile();
+		ProfileClient client = new ClientFactory(baseUrl, null).getProfile();
 		ProfileInvoker invoker = ProfileInvoker.builder().listingId(1).clientIp("127.0.0.1")
 			.publisher("acme").placement("junit").noLog(1).build();
 		

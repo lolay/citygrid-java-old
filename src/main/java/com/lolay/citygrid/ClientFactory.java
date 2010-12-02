@@ -20,42 +20,57 @@ package com.lolay.citygrid;
 
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 
+import com.lolay.citygrid.pfp.PfpClient;
 import com.lolay.citygrid.profile.ProfileClient;
 import com.lolay.citygrid.search.SearchClient;
 import com.lolay.citygrid.tracking.TrackingClient;
 
 public class ClientFactory {
-	private String baseUrl = null;
+	private String apiBaseUrl = null;
+	private String pfpBaseUrl = null;
 	private SearchClient search = null;
 	private ProfileClient profile = null;
 	private TrackingClient tracking = null;
+	private PfpClient pfp = null;
 	
-	public ClientFactory(String baseUrl) {
-		this.baseUrl = baseUrl;
+	public ClientFactory(String apiBaseUrl, String pfpBaseUrl) {
+		this.apiBaseUrl = apiBaseUrl;
+		this.pfpBaseUrl = pfpBaseUrl;
 	}
 
-	private <R> R getResource(Class<R> type) {
-		return JAXRSClientFactory.create(baseUrl, type);
+	private <R> R getApiResource(Class<R> type) {
+		return JAXRSClientFactory.create(apiBaseUrl, type);
+	}
+	
+	private <R> R getPfpResource(Class<R> type) {
+		return JAXRSClientFactory.create(pfpBaseUrl, type);
 	}
 	
 	public synchronized SearchClient getSearch() {
 		if (search == null) {
-			search = getResource(SearchClient.class);
+			search = getApiResource(SearchClient.class);
 		}
 		return search;
 	}
 	
 	public synchronized ProfileClient getProfile() {
 		if (profile == null) {
-			profile = getResource(ProfileClient.class);
+			profile = getApiResource(ProfileClient.class);
 		}
 		return profile;
 	}
 	
 	public synchronized TrackingClient getTracking() {
 		if (tracking == null) {
-			tracking = getResource(TrackingClient.class);
+			tracking = getApiResource(TrackingClient.class);
 		}
 		return tracking;
+	}
+	
+	public synchronized PfpClient getPfp() {
+		if (pfp == null) {
+			pfp = getPfpResource(PfpClient.class);
+		}
+		return pfp;
 	}
 }

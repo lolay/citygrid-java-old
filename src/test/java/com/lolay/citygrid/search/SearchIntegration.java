@@ -40,7 +40,7 @@ public class SearchIntegration extends TestCase {
 	public void testLocations() throws Exception {
 		Log log = testLocationsLog;
 		log.trace("ENTER");
-		SearchClient searchProxy = new ClientFactory(baseUrl).getSearch();
+		SearchClient searchProxy = new ClientFactory(baseUrl, null).getSearch();
 		
 		SearchInvoker search = SearchInvoker.builder().publisher("acme")
 			.type(SearchType.RESTAURANT).where("90069").placement("junit").build();
@@ -118,7 +118,7 @@ public class SearchIntegration extends TestCase {
 	public void testTags() throws Exception {
 		Log log = testTagsLog;
 		log.trace("ENTER");
-		SearchClient searchProxy = new ClientFactory(baseUrl).getSearch();
+		SearchClient searchProxy = new ClientFactory(baseUrl, null).getSearch();
 		
 		SearchInvoker search = SearchInvoker.builder().publisher("acme")
 			.what("*").addTags(1726).addTags(1722).addTags(110)
@@ -139,7 +139,7 @@ public class SearchIntegration extends TestCase {
 	public void testLocationsCorrection() throws Exception {
 		Log log = testLocationsCorrectionLog;
 		log.trace("ENTER");
-		SearchClient searchProxy = new ClientFactory(baseUrl).getSearch();
+		SearchClient searchProxy = new ClientFactory(baseUrl, null).getSearch();
 		
 		SearchInvoker search = SearchInvoker.builder().publisher("acme")
 			.what("computr parts").where("90069").placement("junit").build();
@@ -170,7 +170,7 @@ public class SearchIntegration extends TestCase {
 	public void testEvents() throws Exception {
 		Log log = testEventsLog;
 		log.trace("ENTER");
-		SearchClient searchProxy = new ClientFactory(baseUrl).getSearch();
+		SearchClient searchProxy = new ClientFactory(baseUrl, null).getSearch();
 		
 		SearchInvoker search = SearchInvoker.builder().publisher("acme")
 			.type(SearchType.MOVIE).where("90069").placement("junit").build();
@@ -239,7 +239,7 @@ public class SearchIntegration extends TestCase {
 	public void testError() throws Exception {
 		Log log = testErrorsLog;
 		log.trace("ENTER");
-		SearchClient searchProxy = new ClientFactory(baseUrl).getSearch();
+		SearchClient searchProxy = new ClientFactory(baseUrl, null).getSearch();
 		
 		SearchInvoker search = SearchInvoker.builder().publisher("acme")
 			.type(SearchType.RESTAURANT).where("abcdefghijklmnopqrstuvwxyz").placement("junit").build();
