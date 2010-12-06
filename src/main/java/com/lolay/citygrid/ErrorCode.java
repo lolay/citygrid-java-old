@@ -48,7 +48,8 @@ public enum ErrorCode {
 	PAGE_OUT_OF_RANGE("page.out.of.range"),
 	RESULTS_PER_PAGE_OUT_OF_RANGE("rpp.out.of.range"),
 	PUBLISHER_REQUIRED("publisher.required"),
-	INTERNAL_ERROR("internal.error");
+	INTERNAL_ERROR("internal.error"),
+	LISTING_NOT_FOUND("listing.not.found");
 	
 	private static ResourceBundle bundle = ResourceBundle.getBundle("com.lolay.citygrid.ErrorCode");
 	private static Map<String,ErrorCode> codeMap;
