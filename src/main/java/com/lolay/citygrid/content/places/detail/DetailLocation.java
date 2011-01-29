@@ -87,7 +87,7 @@ public class DetailLocation implements Serializable {
 	@XmlElementWrapper(name="editorials")
 	@XmlElement(name="editorial")
 	private List<DetailEditorial> editorials = null;
-	@XmlElement(name="reviews",required=true)
+	@XmlElement(name="review_info",required=true)
 	private DetailReviews reviews = null;
 	
 	public Integer getId() {
