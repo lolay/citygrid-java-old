@@ -34,21 +34,21 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class ProfileAddress implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@XmlElement(name="street")
+	@XmlElement(name="street",nillable=true)
 	private String street = null;
-	@XmlElement(name="city")
+	@XmlElement(name="city",nillable=true)
 	private String city = null;
-	@XmlElement(name="state")
+	@XmlElement(name="state",nillable=true)
 	private String state = null;
-	@XmlElement(name="postal_code")
+	@XmlElement(name="postal_code",nillable=true)
 	private String postalCode = null;
-	@XmlElement(name="street")
+	@XmlElement(name="delivery_point",nillable=true)
 	private String deliveryPoint = null;
-	@XmlElement(name="cross_street")
+	@XmlElement(name="cross_street",nillable=true)
 	private String crossStreet = null;
-	@XmlElement(name="latitude")
+	@XmlElement(name="latitude",nillable=true)
 	private Double latitude = null;
-	@XmlElement(name="longitude")
+	@XmlElement(name="longitude",nillable=true)
 	private Double longitude = null;
 	
 	public String getStreet() {

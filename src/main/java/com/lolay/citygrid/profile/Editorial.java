@@ -58,9 +58,9 @@ public class Editorial implements Serializable {
 	private String editorialAuthor = null;
 	@XmlElement(name="editorial_review",required=true)
 	private String editorialReview = null;
-	@XmlElement(name="pros")
+	@XmlElement(name="pros",nillable=true)
 	private String pros = null;
-	@XmlElement(name="cons")
+	@XmlElement(name="cons",nillable=true)
 	private String cons = null;
 	@XmlElement(name="editorial_date",required=true)
 	private Date editorialDate = null;

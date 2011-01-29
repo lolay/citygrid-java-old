@@ -35,8 +35,8 @@ public class TrackingIntegration extends TestCase {
 		
 		log.trace("ENTER");
 		
-		TrackingClient client = new ClientFactory(baseUrl, null).getTracking();
-		TrackingInvoker invoker = TrackingInvoker.builder().listingId(1).referenceId(1).actionTarget(ActionTarget.LISTING_PROFILE)
+		TrackingClient client = new ClientFactory(baseUrl).getTracking();
+		TrackingInvoker invoker = TrackingInvoker.builder().listingId(1).referenceId(1).impressionId("1").actionTarget(ActionTarget.LISTING_PROFILE)
 				.mobileType("junit").muid("1234567890abcdef1234567890abcdef12345678").ua("Integratin/1.0").publisher("4214549098")
 				.placement("junit").build();
 

@@ -34,13 +34,13 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@XmlElement(name="street")
+	@XmlElement(name="street",nillable=true)
 	private String street = null;
-	@XmlElement(name="city")
+	@XmlElement(name="city",nillable=true)
 	private String city = null;
-	@XmlElement(name="state")
+	@XmlElement(name="state",nillable=true)
 	private String state = null;
-	@XmlElement(name="postalcode")
+	@XmlElement(name="postal_code",nillable=true)
 	private String postalCode = null;
 	
 	public String getStreet() {

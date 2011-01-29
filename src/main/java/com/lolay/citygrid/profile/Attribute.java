@@ -34,7 +34,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class Attribute implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@XmlAttribute(name="attributeid",required=true)
+	@XmlAttribute(name="attribute_id",required=true)
 	private Integer attributeId = null;
 	@XmlAttribute(name="name",required=true)
 	private String name = null;

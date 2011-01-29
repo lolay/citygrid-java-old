@@ -29,15 +29,15 @@ import junit.framework.TestCase;
 
 public class PfpIntegration extends TestCase {
 	private static final Log testBannerLog = LogFactory.getLog(PfpIntegration.class.getName() + ".testBanner");
-	private static final Log testQueryLog = LogFactory.getLog(PfpIntegration.class.getName() + ".testQuery");
-	private static final Log testLocationLog = LogFactory.getLog(PfpIntegration.class.getName() + ".testLocation");
-	private static final String baseUrl = "http://pfp.citysearch.com";
+	private static final Log testWhereLog = LogFactory.getLog(PfpIntegration.class.getName() + ".testQuery");
+	private static final Log testLatLonLog = LogFactory.getLog(PfpIntegration.class.getName() + ".testLocation");
+	private static final String baseUrl = "http://api.citygridmedia.com";
 	
-	public void testBanner() throws Exception {
+	public void disabledtestBanner() throws Exception {
 		final Log log = testBannerLog;
 		log.trace("ENTER");
 		
-		PfpClient pfpProxy = new ClientFactory(null, baseUrl).getPfp();
+		PfpClient pfpProxy = new ClientFactory(baseUrl).getPfp();
 		
 		PfpInvoker pfp = PfpInvoker.builder().what("restaurant").where("90069").publisher("citysearch").rotation(true).build();
 		BannerResults results = null;
@@ -62,17 +62,17 @@ public class PfpIntegration extends TestCase {
 		}
 	}
 	
-	public void testQuery() throws Exception {
-		final Log log = testQueryLog;
+	public void testWhere() throws Exception {
+		final Log log = testWhereLog;
 		log.trace("ENTER");
 		
-		PfpClient pfpProxy = new ClientFactory(null, baseUrl).getPfp();
+		PfpClient pfpProxy = new ClientFactory(baseUrl).getPfp();
 		
 		PfpInvoker pfp = PfpInvoker.builder().what("restaurant").where("90069").publisher("citysearch").build();
 		PfpResults results = null;
 		try {
 			long start = System.currentTimeMillis();
-			results = pfp.query(pfpProxy);
+			results = pfp.where(pfpProxy);
 			long end = System.currentTimeMillis();
 			log.trace(String.format("PFP took %s ms", end - start));
 		} catch (WebApplicationException e) {
@@ -87,12 +87,13 @@ public class PfpIntegration extends TestCase {
 			assertNotNull(ad.getType());
 			assertNotNull(ad.getAdDestinationUrl());
 			
-			if (ad.getListingId() != null) {
+			if (ad.getListingId() != null && ad.getListingId() != 0) {
 				assertNotNull(ad.getId());
+				assertNotNull(ad.getImpressionId());
 				assertNotNull(ad.getName());
 				assertNotNull(ad.getLatitude());
 				assertNotNull(ad.getLongitude());
-				assertNotNull(ad.getNetPpe());
+				assertNotNull(ad.getGrossPpe());
 			} else {
 				assertNotNull(ad.getTagline());
 				assertNotNull(ad.getDescription());
@@ -101,17 +102,17 @@ public class PfpIntegration extends TestCase {
 		
 	}
 
-	public void testLocation() throws Exception {
-		final Log log = testLocationLog;
+	public void testLatLon() throws Exception {
+		final Log log = testLatLonLog;
 		log.trace("ENTER");
 		
-		PfpClient pfpProxy = new ClientFactory(null, baseUrl).getPfp();
+		PfpClient pfpProxy = new ClientFactory(baseUrl).getPfp();
 		
-		PfpInvoker pfp = PfpInvoker.builder().addTag(1726).addTag(110).addTag(1722).latitude(34.09D).longitude(-118.3608333D).publisher("citysearch").build();
+		PfpInvoker pfp = PfpInvoker.builder().what("restaurant").latitude(34.0522222D).longitude(-118.2427778D).radius(50).publisher("citysearch").build();
 		PfpResults results = null;
 		try {
 			long start = System.currentTimeMillis();
-			results = pfp.location(pfpProxy);
+			results = pfp.latlon(pfpProxy);
 			long end = System.currentTimeMillis();
 			log.trace(String.format("PFP location took %s ms", end - start));
 		} catch (WebApplicationException e) {
@@ -128,10 +129,11 @@ public class PfpIntegration extends TestCase {
 			
 			if (ad.getListingId() != null) {
 				assertNotNull(ad.getId());
+				assertNotNull(ad.getImpressionId());
 				assertNotNull(ad.getName());
 				assertNotNull(ad.getLatitude());
 				assertNotNull(ad.getLongitude());
-				assertNotNull(ad.getNetPpe());
+				assertNotNull(ad.getGrossPpe());
 			} else {
 				assertNotNull(ad.getTagline());
 				assertNotNull(ad.getDescription());

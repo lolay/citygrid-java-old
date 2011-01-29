@@ -43,29 +43,31 @@ public class PfpAd implements Serializable {
 	private Integer id = null;
 	@XmlElement(name="type",required=true)
 	private String type = null;
-	@XmlElement(name="listingId")
+	@XmlElement(name="impression_id",required=true)
+	private String impressionId = null;
+	@XmlElement(name="listing_id",nillable=true)
 	private Integer listingId = null;
-	@XmlElement(name="name")
+	@XmlElement(name="name",nillable=true)
 	private String name = null;
-	@XmlElement(name="street")
+	@XmlElement(name="street",nillable=true)
 	private String street = null;
-	@XmlElement(name="city")
+	@XmlElement(name="city",nillable=true)
 	private String city = null;
-	@XmlElement(name="state")
+	@XmlElement(name="state",nillable=true)
 	private String state = null;
-	@XmlElement(name="zip")
+	@XmlElement(name="zip",nillable=true)
 	private String zip = null;
-	@XmlElement(name="latitude")
+	@XmlElement(name="latitude",nillable=true)
 	private Double latitude = null;
-	@XmlElement(name="longitude")
+	@XmlElement(name="longitude",nillable=true)
 	private Double longitude = null;
-	@XmlElement(name="phone")
+	@XmlElement(name="phone",nillable=true)
 	private String phone = null;
-	@XmlElement(name="tagline")
+	@XmlElement(name="tagline",nillable=true)
 	private String tagline = null;
-	@XmlElement(name="description")
+	@XmlElement(name="description",nillable=true)
 	private String description = null;
-	@XmlElement(name="overall_review_rating")
+	@XmlElement(name="overall_review_rating",nillable=true)
 	private Integer overallReviewRating = null;
 	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	@XmlElement(name="ad_destination_url",required=true)
@@ -76,13 +78,13 @@ public class PfpAd implements Serializable {
 	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	@XmlElement(name="ad_image_url")
 	private URI adImageUrl = null;
-	@XmlElement(name="net_ppe")
-	private Float netPpe = null;
-	@XmlElement(name="reviews")
+	@XmlElement(name="gross_ppe",nillable=true)
+	private Float grossPpe = null;
+	@XmlElement(name="reviews",nillable=true)
 	private Integer reviews = null;
-	@XmlElement(name="offers")
+	@XmlElement(name="offers",nillable=true)
 	private String offers = null;
-	@XmlElement(name="distance")
+	@XmlElement(name="distance",nillable=true)
 	private Double distance = null;
 	
 	public Integer getId() {
@@ -96,6 +98,12 @@ public class PfpAd implements Serializable {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public String getImpressionId() {
+		return impressionId;
+	}
+	public void setImpressionId(String impressionId) {
+		this.impressionId = impressionId;
 	}
 	public Integer getListingId() {
 		return listingId;
@@ -187,11 +195,11 @@ public class PfpAd implements Serializable {
 	public void setAdImageUrl(URI adImageUrl) {
 		this.adImageUrl = adImageUrl;
 	}
-	public Float getNetPpe() {
-		return netPpe;
+	public Float getGrossPpe() {
+		return grossPpe;
 	}
-	public void setNetPpe(Float netPpe) {
-		this.netPpe = netPpe;
+	public void setGrossPpe(Float grossPpe) {
+		this.grossPpe = grossPpe;
 	}
 	public Integer getReviews() {
 		return reviews;

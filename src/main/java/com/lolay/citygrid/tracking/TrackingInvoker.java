@@ -39,9 +39,12 @@ public class TrackingInvoker extends BaseInvoker {
 	private Integer listingId = null;
 	private Integer referenceId = null;
 	private String publisher = null;
+	private String impressionId = null;
 	private String placement = null;
 	private String mobileType = null;
 	private String muid = null;
+	private String sourcePhone = null;
+	private String dialPhone = null;
 	private String ua = null;
 	
 	public Long getWarningLimit() {
@@ -74,6 +77,12 @@ public class TrackingInvoker extends BaseInvoker {
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
+	public String getImpressionId() {
+		return impressionId;
+	}
+	public void setImpressionId(String impressionId) {
+		this.impressionId = impressionId;
+	}
 	public String getPlacement() {
 		return placement;
 	}
@@ -92,6 +101,18 @@ public class TrackingInvoker extends BaseInvoker {
 	public void setMuid(String muid) {
 		this.muid = muid;
 	}
+	public String getSourcePhone() {
+		return sourcePhone;
+	}
+	public void setSourcePhone(String sourcePhone) {
+		this.sourcePhone = sourcePhone;
+	}
+	public String getDialPhone() {
+		return dialPhone;
+	}
+	public void setDialPhone(String dialPhone) {
+		this.dialPhone = dialPhone;
+	}
 	public String getUa() {
 		return ua;
 	}
@@ -102,7 +123,7 @@ public class TrackingInvoker extends BaseInvoker {
 	public void impression(TrackingClient client) throws InvokerException {
 		Long start = System.currentTimeMillis();
 
-		client.impression(getActionTarget(), getListingId(), getReferenceId(), getPublisher(), getPlacement(), getMobileType(), getMuid(), getUa());
+		client.impression(getActionTarget(), getListingId(), getReferenceId(), getPublisher(), getImpressionId(), getPlacement(), getMobileType(), getMuid(), getSourcePhone(), getDialPhone(), getUa());
 		
 		Long end = System.currentTimeMillis();
 		Long diff = end - start;
@@ -154,6 +175,11 @@ public class TrackingInvoker extends BaseInvoker {
 			return this;
 		}
 		
+		public Builder impressionId(String impressionId) {
+			instance.setImpressionId(impressionId);
+			return this;
+		}
+		
 		public Builder placement(String placement) {
 			instance.setPlacement(placement);
 			return this;
@@ -166,6 +192,16 @@ public class TrackingInvoker extends BaseInvoker {
 		
 		public Builder muid(String muid) {
 			instance.setMuid(muid);
+			return this;
+		}
+		
+		public Builder sourcePhone(String sourcePhone) {
+			instance.setSourcePhone(sourcePhone);
+			return this;
+		}
+		
+		public Builder dialPhone(String dialPhone) {
+			instance.setDialPhone(dialPhone);
 			return this;
 		}
 		

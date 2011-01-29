@@ -29,10 +29,10 @@ import javax.ws.rs.core.Response;
 import com.lolay.citygrid.Format;
 
 /**
- * @see http://developer.citygridmedia.com/docs/search
+ * @see http://docs.citygridmedia.com/display/citygridv2/Places+API#PlacesAPI-PlacesSearch
  * @see SearchInvoker
  */
-@Path("/search")
+@Path("/content/places/v2/search")
 @Consumes(MediaType.WILDCARD)
 @Produces({MediaType.TEXT_XML,MediaType.TEXT_PLAIN})
 public interface SearchClient {
@@ -42,12 +42,13 @@ public interface SearchClient {
 	public static final String TYPE = "type";
 	public static final String WHAT = "what";
 	public static final String TAG = "tag";
-	public static final String TAGS = "tags";
 	public static final String CHAIN = "chain";
 	public static final String FIRST = "first";
 	public static final String WHERE = "where";
 	public static final String LATITUDE = "lat";
 	public static final String LONGITUDE = "lon";
+	public static final String LATITUDE2 = "lat2";
+	public static final String LONGITUDE2 = "lon2";
 	public static final String RADIUS = "radius";
 	public static final String PAGE = "page";
 	public static final String RESULTS_PER_PAGE = "rpp";
@@ -56,47 +57,48 @@ public interface SearchClient {
 	public static final String API_KEY = "api_key";
 	public static final String FORMAT = "format";
 	public static final String PLACEMENT = "placement";
-	public static final String FROM = "from";
-	public static final String TO = "to";
+	public static final String HAS_OFFERS = "has_offers";
+	public static final String HISTOGRAMS = "histograms";
 	
 	@GET
-	@Path("/locations")
-	public Response locations(
+	@Path("/where")
+	public Response where(
 			@QueryParam(TYPE) SearchType type,
 			@QueryParam(WHAT) String what,
 			@QueryParam(TAG) Integer tag,
-			@QueryParam(TAGS) String tags,
 			@QueryParam(CHAIN) Integer chain,
 			@QueryParam(FIRST) Character first,
 			@QueryParam(WHERE) String where,
-			@QueryParam(LATITUDE) Double latitude,
-			@QueryParam(LONGITUDE) Double longitude,
-			@QueryParam(RADIUS) Float radius,
 			@QueryParam(PAGE) Integer page,
 			@QueryParam(RESULTS_PER_PAGE) Integer resultsPerPage,
 			@QueryParam(SORT) SearchSort sort,
 			@QueryParam(PUBLISHER) String publisher,
 			@QueryParam(API_KEY) String apiKey,
 			@QueryParam(PLACEMENT) String placement,
+			@QueryParam(HAS_OFFERS) Boolean hasOffers,
+			@QueryParam(HISTOGRAMS) Boolean histograms,
 			@QueryParam(FORMAT) Format format);
 	
 	@GET
-	@Path("/events")
-	public Response events(
+	@Path("/latlon")
+	public Response latlon(
 			@QueryParam(TYPE) SearchType type,
 			@QueryParam(WHAT) String what,
+			@QueryParam(TAG) Integer tag,
+			@QueryParam(CHAIN) Integer chain,
 			@QueryParam(FIRST) Character first,
-			@QueryParam(WHERE) String where,
 			@QueryParam(LATITUDE) Double latitude,
 			@QueryParam(LONGITUDE) Double longitude,
+			@QueryParam(LATITUDE2) Double latitude2,
+			@QueryParam(LONGITUDE2) Double longitude2,
 			@QueryParam(RADIUS) Float radius,
-			@QueryParam(FROM) String from,
-			@QueryParam(TO) String to,
 			@QueryParam(PAGE) Integer page,
 			@QueryParam(RESULTS_PER_PAGE) Integer resultsPerPage,
 			@QueryParam(SORT) SearchSort sort,
 			@QueryParam(PUBLISHER) String publisher,
 			@QueryParam(API_KEY) String apiKey,
 			@QueryParam(PLACEMENT) String placement,
+			@QueryParam(HAS_OFFERS) Boolean hasOffers,
+			@QueryParam(HISTOGRAMS) Boolean histograms,
 			@QueryParam(FORMAT) Format format);
 }

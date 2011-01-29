@@ -20,6 +20,7 @@ package com.lolay.citygrid.tracking;
 
 public enum ActionTarget {
 	LISTING_PROFILE,
+	CLICK_TO_CALL,
 	LISTING_PROFILE_PRINT,
 	LISTING_WEBSITE,
 	LISTING_REVIEW,

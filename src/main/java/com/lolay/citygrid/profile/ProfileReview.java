@@ -58,9 +58,9 @@ public class ProfileReview implements Serializable {
 	private String reviewAuthor = null;
 	@XmlElement(name="review_text",required=true)
 	private String reviewText = null;
-	@XmlElement(name="pros")
+	@XmlElement(name="pros",nillable=true)
 	private String pros = null;
-	@XmlElement(name="cons")
+	@XmlElement(name="cons",nillable=true)
 	private String cons = null;
 	@XmlElement(name="review_date",required=true)
 	private Date reviewDate = null;

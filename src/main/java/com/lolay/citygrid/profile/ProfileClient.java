@@ -29,10 +29,10 @@ import javax.ws.rs.core.Response;
 import com.lolay.citygrid.Format;
 
 /**
- * @see http://developer.citygridmedia.com/docs/profile
+ * @see http://docs.citygridmedia.com/display/citygridv2/Places+API#PlacesAPI-PlacesDetail
  * @see ProfileInvoker
  */
-@Path("/profile")
+@Path("/content/places/v2")
 @Consumes(MediaType.WILDCARD)
 @Produces({MediaType.TEXT_XML,MediaType.TEXT_PLAIN})
 public interface ProfileClient {
@@ -50,9 +50,9 @@ public interface ProfileClient {
 	public static final String PLACEMENT = "placement";
 	public static final String CLIENT_IP = "client_ip";
 	public static final String FORMAT = "format";
-	public static final String NOLOG = "nolog";
 
 	@GET
+	@Path("/detail")
 	public Response profile(
 			@QueryParam(LISTING_ID) Integer listingId,
 			@QueryParam(INFO_USA_ID) Integer infoUsaId,
@@ -64,6 +64,5 @@ public interface ProfileClient {
 			@QueryParam(REVIEW_COUNT) Integer reviewCount,
 			@QueryParam(PLACEMENT) String placement,
 			@QueryParam(CLIENT_IP) String clientIp,
-			@QueryParam(FORMAT) Format format,
-			@QueryParam(NOLOG) Integer noLog);
+			@QueryParam(FORMAT) Format format);
 }

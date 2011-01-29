@@ -45,7 +45,7 @@ public class CustomerContent implements Serializable {
 	@XmlElementWrapper(name="bullets")
 	@XmlElement(name="bullet",required=true)
 	private List<String> bullets = null;
-	@XmlElement(name="customer_message",required=true)
+	@XmlElement(name="customer_message_url",required=true)
 	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	private URI customerMessageUrl = null;
 	

@@ -33,10 +33,6 @@ public class BaseInvoker implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	protected static <T> T parseResults(Class<T> type, Response response) throws InvokerException {
-		if (Response.Status.OK.getStatusCode() != response.getStatus()) {
-			throw new RuntimeException(String.format("Can only parse a 200 response, the reponse was %s", response.getStatus()));
-		}
-		
 		if (response.getEntity() != null && response.getEntity().getClass().equals(type)) {
 			return type.cast(response.getEntity());
 		} else if (response.getEntity() instanceof ErrorResults) {

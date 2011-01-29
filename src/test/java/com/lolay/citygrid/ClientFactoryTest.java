@@ -24,7 +24,7 @@ import junit.framework.TestCase;
 
 public class ClientFactoryTest extends TestCase {
 	public void testSearch() throws Exception {
-		ClientFactory factory = new ClientFactory("http://api.citygridmedia.com", "http://pfp.citygridmedia.com");
+		ClientFactory factory = new ClientFactory("http://api.citygridmedia.com");
 		SearchClient search1 = factory.getSearch();
 		assertNotNull(search1);
 		SearchClient search2 = factory.getSearch();

@@ -27,15 +27,13 @@ import com.lolay.citygrid.tracking.TrackingClient;
 
 public class ClientFactory {
 	private String apiBaseUrl = null;
-	private String pfpBaseUrl = null;
 	private SearchClient search = null;
 	private ProfileClient profile = null;
 	private TrackingClient tracking = null;
 	private PfpClient pfp = null;
 	
-	public ClientFactory(String apiBaseUrl, String pfpBaseUrl) {
+	public ClientFactory(String apiBaseUrl) {
 		this.apiBaseUrl = apiBaseUrl;
-		this.pfpBaseUrl = pfpBaseUrl;
 	}
 
 	private <R> R getApiResource(Class<R> type) {
@@ -43,7 +41,7 @@ public class ClientFactory {
 	}
 	
 	private <R> R getPfpResource(Class<R> type) {
-		return JAXRSClientFactory.create(pfpBaseUrl, type);
+		return JAXRSClientFactory.create(apiBaseUrl, type);
 	}
 	
 	public synchronized SearchClient getSearch() {

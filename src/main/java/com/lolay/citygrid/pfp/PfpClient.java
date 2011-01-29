@@ -29,8 +29,10 @@ import javax.ws.rs.core.Response;
 import com.lolay.citygrid.Format;
 
 /**
+ * @see http://docs.citygridmedia.com/display/citygridv2/Custom+Ads+API
  * @see PfpInvoker
  */
+@Path("/ads/custom/v2")
 @Consumes(MediaType.WILDCARD)
 @Produces({MediaType.TEXT_XML,MediaType.TEXT_PLAIN})
 public interface PfpClient {
@@ -47,44 +49,41 @@ public interface PfpClient {
 	public static final String MAX = "max";
 	public static final String PLACEMENT = "placement";
 	public static final String ROTATION = "rotation";
-	public static final String TAGS = "tags";
-	public static final String GEOGRAPHIES = "geographies";
+	public static final String IMPRESSION_ID = "c";
 	
 	@GET
-	@Path("/pfp")
-	public Response query(
+	@Path("/where")
+	public Response where(
 			@QueryParam(WHAT) String what,
 			@QueryParam(WHERE) String where,
-			@QueryParam(TAGS) String tags,
-			@QueryParam(GEOGRAPHIES) String geographies,
 			@QueryParam(CLIENT_IP) String clientIp,
+			@QueryParam(RADIUS) Integer radius,
+			@QueryParam(IMPRESSION_ID) String impressionId,
 			@QueryParam(PUBLISHER) String publisher,
-			@QueryParam(FORMAT) Format format,
 			@QueryParam(MAX) Integer max,
 			@QueryParam(PLACEMENT) String placement);
 	
 	@GET
-	@Path("/pfp/location")
-	public Response location(
+	@Path("/latlon")
+	public Response latlon(
 			@QueryParam(WHAT) String what,
+			@QueryParam(CLIENT_IP) String clientIp,
 			@QueryParam(LATITUDE) Double latitude,
 			@QueryParam(LONGITUDE) Double longitude,
-			@QueryParam(RADIUS) Float radius,
-			@QueryParam(TAGS) String tags,
-			@QueryParam(CLIENT_IP) String clientIp,
+			@QueryParam(RADIUS) Integer radius,
+			@QueryParam(IMPRESSION_ID) String impressionId,
 			@QueryParam(PUBLISHER) String publisher,
-			@QueryParam(FORMAT) Format format,
 			@QueryParam(MAX) Integer max,
 			@QueryParam(PLACEMENT) String placement);
-	
+
 	@GET
-	@Path("/pfp/banner")
+	@Path("/banner")
 	public Response banner(
 			@QueryParam(WHAT) String what,
 			@QueryParam(WHERE) String where,
 			@QueryParam(LATITUDE) Double latitude,
 			@QueryParam(LONGITUDE) Double longitude,
-			@QueryParam(RADIUS) Float radius,
+			@QueryParam(RADIUS) Integer radius,
 			@QueryParam(PUBLISHER) String publisher,
 			@QueryParam(CLIENT_IP) String clientIp,
 			@QueryParam(SIZE) BannerSize size,

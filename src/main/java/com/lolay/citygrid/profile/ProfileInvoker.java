@@ -28,7 +28,7 @@ import com.lolay.citygrid.Format;
 import com.lolay.citygrid.InvokerException;
 
 /**
- * @see http://developer.citygridmedia.com/docs/profile
+ * @see http://docs.citygridmedia.com/display/citygridv2/Places+API#PlacesAPI-PlacesDetail
  * @see ProfileClient
  */
 public class ProfileInvoker extends BaseInvoker {
@@ -46,7 +46,6 @@ public class ProfileInvoker extends BaseInvoker {
 	private Integer reviewCount = null;
 	private String placement = null;
 	private String clientIp = null;
-	private Integer noLog = null;
 	
 	public Long getWarningLimit() {
 		return warningLimit;
@@ -114,12 +113,6 @@ public class ProfileInvoker extends BaseInvoker {
 	public void setClientIp(String clientIp) {
 		this.clientIp = clientIp;
 	}
-	public Integer getNoLog() {
-		return noLog;
-	}
-	public void setNoLog(Integer noLog) {
-		this.noLog = noLog;
-	}
 	public ProfileResults profile(ProfileClient client) throws InvokerException {
 		ProfileResults results;
 		
@@ -127,7 +120,7 @@ public class ProfileInvoker extends BaseInvoker {
 
 		results = parseResults(ProfileResults.class, client.profile(getListingId(), getInfoUsaId(),
 			getPhone(), getPublisher(), getApiKey(), getCustomerOnly(), getAllResults(),
-			getReviewCount(), getPlacement(), getClientIp(), Format.XML, getNoLog()));
+			getReviewCount(), getPlacement(), getClientIp(), Format.XML));
 		
 		Long end = System.currentTimeMillis();
 		Long diff = end - start;
@@ -146,7 +139,7 @@ public class ProfileInvoker extends BaseInvoker {
 			.phone(prototype.getPhone()).publisher(prototype.getPublisher())
 			.apiKey(prototype.getApiKey()).customerOnly(prototype.getCustomerOnly())
 			.allResults(prototype.getAllResults()).reviewCount(prototype.getReviewCount())
-			.placement(prototype.getPlacement()).clientIp(prototype.getClientIp()).noLog(prototype.getNoLog());
+			.placement(prototype.getPlacement()).clientIp(prototype.getClientIp());
 	}
 	public static Builder builder() {
 		return new Builder();
@@ -210,11 +203,6 @@ public class ProfileInvoker extends BaseInvoker {
 		
 		public Builder clientIp(String clientIp) {
 			instance.setClientIp(clientIp);
-			return this;
-		}
-		
-		public Builder noLog(Integer noLog) {
-			instance.setNoLog(noLog);
 			return this;
 		}
 		

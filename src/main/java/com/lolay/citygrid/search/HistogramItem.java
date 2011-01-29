@@ -20,12 +20,14 @@ package com.lolay.citygrid.search;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -43,9 +45,12 @@ public class HistogramItem implements Serializable {
 	private String name = null;
 	@XmlAttribute(name="count",required=true)
 	private Integer count = null;
-	@XmlValue
+	@XmlElement(name="url",nillable=true)
 	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	private URI uri = null;
+	@XmlElementWrapper(name="tag_ids")
+	@XmlElement(name="tag_id")
+	private List<String> tagIds = null;
 	
 	public String getName() {
 		return name;
@@ -65,7 +70,13 @@ public class HistogramItem implements Serializable {
 	public void setUri(URI uri) {
 		this.uri = uri;
 	}
-
+	public List<String> getTagIds() {
+		return tagIds;
+	}
+	public void setTagIds(List<String> tagIds) {
+		this.tagIds = tagIds;
+	}
+	
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);

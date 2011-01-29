@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -43,35 +44,32 @@ import com.lolay.citygrid.UriAdapter;
 public class SearchResults implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@XmlAttribute(name="queryid")
-	private String queryId = null;
-	@XmlAttribute(name="firsthit",required=true)
+	@XmlAttribute(name="first_hit",required=true)
 	private Integer firstHit = null;
-	@XmlAttribute(name="lasthit",required=true)
+	@XmlAttribute(name="last_hit",required=true)
 	private Integer lastHit = null;
-	@XmlAttribute(name="totalhits",required=true)
+	@XmlAttribute(name="total_hits",required=true)
 	private Integer totalHits = null;
+	@XmlAttribute(name="page",required=true)
+	private Integer page = null;
+	@XmlAttribute(name="rpp",required=true)
+	private Integer resultsPerPage = null;
 	@XmlElement(name="uri",required=true)
 	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	private URI uri = null;
-	@XmlElement(name="didyoumean")
+	@XmlElement(name="did_you_mean",nillable=true)
 	private String didYouMean = null;
+	@XmlElementWrapper(name="regions")
 	@XmlElement(name="region")
 	private List<Region> regions = null;
+	@XmlElementWrapper(name="locations")
 	@XmlElement(name="location")
 	private List<SearchLocation> locations = null;
-	@XmlElement(name="engagement")
-	private List<Engagement> engagements = null;
+	@XmlElementWrapper(name="histograms")
 	@XmlElement(name="histogram")
 	private List<Histogram> histograms = null;
 	
-	public String getQueryId() {
-		return queryId;
-	}
-	public void setQueryId(String queryId) {
-		this.queryId = queryId;
-	}
-	public Integer getFirst() {
+	public Integer getFirstHit() {
 		return firstHit;
 	}
 	public void setFirstHit(Integer firstHit) {
@@ -86,8 +84,20 @@ public class SearchResults implements Serializable {
 	public Integer getTotalHits() {
 		return totalHits;
 	}
-	public void setTotal(Integer totalHits) {
+	public void setTotalHits(Integer totalHits) {
 		this.totalHits = totalHits;
+	}
+	public Integer getPage() {
+		return page;
+	}
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+	public Integer getResultsPerPage() {
+		return resultsPerPage;
+	}
+	public void setResultsPerPage(Integer resultsPerPage) {
+		this.resultsPerPage = resultsPerPage;
 	}
 	public URI getUri() {
 		return uri;
@@ -113,12 +123,6 @@ public class SearchResults implements Serializable {
 	public void setLocations(List<SearchLocation> locations) {
 		this.locations = locations;
 	}	
-	public List<Engagement> getEngagements() {
-		return engagements;
-	}
-	public void setEngagements(List<Engagement> engagements) {
-		this.engagements = engagements;
-	}
 	public List<Histogram> getHistograms() {
 		return histograms;
 	}

@@ -24,13 +24,14 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-@XmlRootElement(name="reviews")
+@XmlRootElement(name="review_info")
 @XmlAccessorType(value=XmlAccessType.FIELD)
 public class ProfileReviews implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -41,6 +42,7 @@ public class ProfileReviews implements Serializable {
 	private Integer totalUserReviews = null;
 	@XmlElement(name="total_user_reviews_shown",required=true)
 	private Integer totalUserReviewsShown = null;
+	@XmlElementWrapper(name="reviews")
 	@XmlElement(name="review")
 	private List<ProfileReview> reviews = null;
 	

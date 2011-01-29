@@ -19,8 +19,6 @@
 package com.lolay.citygrid.search;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -31,7 +29,7 @@ import com.lolay.citygrid.Format;
 import com.lolay.citygrid.InvokerException;
 
 /**
- * @see http://developer.citygridmedia.com/docs/search
+ * @see http://docs.citygridmedia.com/display/citygridv2/Places+API#PlacesAPI-PlacesSearch
  * @see SearchClient
  */
 public class SearchInvoker extends BaseInvoker {
@@ -40,21 +38,22 @@ public class SearchInvoker extends BaseInvoker {
 	private SearchType type = null;
 	private String what = null;
 	private Integer tag = null;
-	private Set<Integer> tags = null;
 	private Integer chain = null;
 	private Character first = null;
 	private String where = null;
 	private Double latitude = null;
 	private Double longitude = null;
+	private Double latitude2 = null;
+	private Double longitude2 = null;
 	private Float radius = null;
-	private String from = null;
-	private String to = null;
 	private Integer page = null;
 	private Integer resultsPerPage = null;
 	private SearchSort sort = null;
 	private String publisher = null;
 	private String apiKey = null;
 	private String placement = null;
+	private Boolean hasOffers = null;
+	private Boolean histograms = null;
 
 	public SearchType getType() {
 		return type;
@@ -77,13 +76,6 @@ public class SearchInvoker extends BaseInvoker {
 		this.tag = tag;
 	}
 
-	public Set<Integer> getTags() {
-		return tags;
-	}
-	public void setTags(Set<Integer> tags) {
-		this.tags = tags;
-	}
-	
 	public Integer getChain() {
 		return chain;
 	}
@@ -119,6 +111,19 @@ public class SearchInvoker extends BaseInvoker {
 		this.longitude = longitude;
 	}
 
+	public Double getLatitude2() {
+		return latitude2;
+	}
+	public void setLatitude2(Double latitude2) {
+		this.latitude2 = latitude2;
+	}
+	public Double getLongitude2() {
+		return longitude2;
+	}
+	public void setLongitude2(Double longitude2) {
+		this.longitude2 = longitude2;
+	}
+	
 	public Float getRadius() {
 		return radius;
 	}
@@ -126,20 +131,6 @@ public class SearchInvoker extends BaseInvoker {
 		this.radius = radius;
 	}
 
-	public String getFrom() {
-		return from;
-	}
-	public void setFrom(String from) {
-		this.from = from;
-	}
-	
-	public String getTo() {
-		return to;
-	}
-	public void setTo(String to) {
-		this.to = to;
-	}
-	
 	public Integer getPage() {
 		return page;
 	}
@@ -182,41 +173,38 @@ public class SearchInvoker extends BaseInvoker {
 		this.placement = placement;
 	}
 	
-	public String getTagsString() {
-		if (getTags() == null || getTags().isEmpty()) {
-			return null;
-		}
-		
-		StringBuilder builder = new StringBuilder();
-		boolean first = true;
-		for (Integer tag : getTags()) {
-			if (first) {
-				first = false;
-			} else {
-				builder.append(" ");
-			}
-			builder.append(tag);
-		}
-		return builder.toString();
+	public Boolean getHasOffers() {
+		return hasOffers;
+	}
+	public void setHasOffers(Boolean hasOffers) {
+		this.hasOffers = hasOffers;
+	}
+	
+	public Boolean getHistograms() {
+		return histograms;
+	}
+	public void setHistograms(Boolean histograms) {
+		this.histograms = histograms;
+	}
+	
+	public SearchResults where(SearchClient search) throws InvokerException {
+		return parseResults(SearchResults.class, search.where(getType(), getWhat(), getTag(), getChain(), getFirst(), getWhere(),
+				getPage(), getResultsPerPage(), getSort(), getPublisher(), getApiKey(), getPlacement(), getHasOffers(), getHistograms(), Format.XML));
 	}
 
-	public SearchResults locations(SearchClient search) throws InvokerException {
-		return parseResults(SearchResults.class, search.locations(getType(), getWhat(), getTag(), getTagsString(), getChain(), getFirst(), getWhere(), getLatitude(), getLongitude(),
-				getRadius(), getPage(), getResultsPerPage(), getSort(), getPublisher(), getApiKey(), getPlacement(), Format.XML));
-	}
-
-	public SearchResults events(SearchClient search) throws InvokerException {
-		return parseResults(SearchResults.class, search.events(getType(), getWhat(), getFirst(), getWhere(), getLatitude(), getLongitude(), getRadius(), getFrom(),
-				getTo(), getPage(), getResultsPerPage(), getSort(), getPublisher(), getApiKey(), getPlacement(), Format.XML));
+	public SearchResults latlon(SearchClient search) throws InvokerException {
+		return parseResults(SearchResults.class, search.latlon(getType(), getWhat(), getTag(), getChain(), getFirst(), getLatitude(), getLongitude(),
+				getLatitude2(), getLongitude2(), getRadius(), getPage(), getResultsPerPage(), getSort(), getPublisher(), getApiKey(), getPlacement(),
+				getHasOffers(), getHistograms(), Format.XML));
 	}
 	
 	public static Builder builder(SearchInvoker prototype) {
 		return builder().type(prototype.getType()).what(prototype.getWhat()).tag(prototype.getTag()).chain(prototype.getChain())
 				.first(prototype.getFirst()).where(prototype.getWhere()).latitude(prototype.getLatitude())
-				.longitude(prototype.getLongitude()).radius(prototype.getRadius()).from(prototype.getFrom())
-				.to(prototype.getTo()).page(prototype.getPage()).resultsPerPage(prototype.getResultsPerPage())
+				.longitude(prototype.getLongitude()).latitude2(prototype.getLatitude2()).longitude2(prototype.getLongitude2())
+				.radius(prototype.getRadius()).page(prototype.getPage()).resultsPerPage(prototype.getResultsPerPage())
 				.sort(prototype.getSort()).publisher(prototype.getPublisher()).apiKey(prototype.getApiKey())
-				.placement(prototype.getPlacement());
+				.placement(prototype.getPlacement()).hasOffers(prototype.getHasOffers()).histograms(prototype.getHistograms());
 	}
 	public static Builder builder() {
 		return new Builder();
@@ -240,16 +228,6 @@ public class SearchInvoker extends BaseInvoker {
 		
 		public Builder tag(Integer tag) {
 			instance.setTag(tag);
-			return this;
-		}
-		
-		public Builder addTags(Integer tag) {
-			Set<Integer> tags = instance.getTags();
-			if (tags == null) {
-				tags = new HashSet<Integer>(3);
-				instance.setTags(tags);
-			}
-			tags.add(tag);
 			return this;
 		}
 		
@@ -278,18 +256,18 @@ public class SearchInvoker extends BaseInvoker {
 			return this;
 		}
 		
+		public Builder latitude2(Double latitude2) {
+			instance.setLatitude2(latitude2);
+			return this;
+		}
+		
+		public Builder longitude2(Double longitude2) {
+			instance.setLongitude2(longitude2);
+			return this;
+		}
+		
 		public Builder radius(Float radius) {
 			instance.setRadius(radius);
-			return this;
-		}
-		
-		public Builder from(String from) {
-			instance.setFrom(from);
-			return this;
-		}
-		
-		public Builder to(String to) {
-			instance.setTo(to);
 			return this;
 		}
 		
@@ -320,6 +298,16 @@ public class SearchInvoker extends BaseInvoker {
 		
 		public Builder placement(String placement) {
 			instance.setPlacement(placement);
+			return this;
+		}
+		
+		public Builder hasOffers(Boolean hasOffers) {
+			instance.setHasOffers(hasOffers);
+			return this;
+		}
+		
+		public Builder histograms(Boolean histograms) {
+			instance.setHistograms(histograms);
 			return this;
 		}
 		

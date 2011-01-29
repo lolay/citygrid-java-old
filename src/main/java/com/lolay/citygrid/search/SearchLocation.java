@@ -20,11 +20,13 @@ package com.lolay.citygrid.search;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -55,27 +57,39 @@ public class SearchLocation implements Serializable {
 	private Double latitude = null;
 	@XmlElement(name="longitude",required=true)
 	private Double longitude = null;
-	@XmlElement(name="image")
+	@XmlElement(name="image",nillable=true)
 	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	private URI image = null;
-	@XmlElement(name="phonenumber")
+	@XmlElement(name="phone_number",nillable=true)
 	private String phoneNumber = null;
-	@XmlElement(name="rating")
+	@XmlElement(name="fax_number",nillable=true)
+	private String faxNumber = null;
+	@XmlElement(name="rating",nillable=true)
 	@XmlJavaTypeAdapter(value=FloatIntegerAdapter.class)
 	private Integer rating = null;
 	@XmlElement(name="profile",required=true)
 	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	private URI profile = null;
-	@XmlElement(name="hasvideo",required=true)
+	@XmlElement(name="website",nillable=true)
+	@XmlJavaTypeAdapter(value=UriAdapter.class)
+	private URI website = null;
+	@XmlElement(name="has_video",required=true)
 	private Boolean hasVideo = null;
-	@XmlElement(name="hasoffers",required=true)
+	@XmlElement(name="has_offers",required=true)
 	private Boolean hasOffers = null;
-	@XmlElement(name="userreviewcount",required=true)
+	@XmlElement(name="offers",nillable=true)
+	private String offers = null;
+	@XmlElement(name="user_review_count",required=true)
 	private Integer userReviewCount = null;
-	@XmlElement(name="samplecategories",required=true)
+	@XmlElement(name="sample_categories",required=true)
 	private String sampleCategories = null;
-	@XmlElement(name="tagline")
+	@XmlElement(name="tagline",nillable=true)
 	private String tagline = null;
+	@XmlElement(name="impression_id",required=true)
+	private String impressionId = null;
+	@XmlElementWrapper(name="tags")
+	@XmlElement(name="tag")
+	private List<SearchTag> tags = null;
 	
 	public Integer getId() {
 		return id;
@@ -131,6 +145,12 @@ public class SearchLocation implements Serializable {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+	public String getFaxNumber() {
+		return faxNumber;
+	}
+	public void setFaxNumber(String faxNumber) {
+		this.faxNumber = faxNumber;
+	}
 	public Integer getRating() {
 		return rating;
 	}
@@ -143,6 +163,12 @@ public class SearchLocation implements Serializable {
 	public void setProfile(URI profile) {
 		this.profile = profile;
 	}
+	public URI getWebsite() {
+		return website;
+	}
+	public void setWebsite(URI website) {
+		this.website = website;
+	}
 	public Boolean getHasVideo() {
 		return hasVideo;
 	}
@@ -154,6 +180,12 @@ public class SearchLocation implements Serializable {
 	}
 	public void setHasOffers(Boolean hasOffers) {
 		this.hasOffers = hasOffers;
+	}
+	public String getOffers() {
+		return offers;
+	}
+	public void setOffers(String offers) {
+		this.offers = offers;
 	}
 	public Integer getUserReviewCount() {
 		return userReviewCount;
@@ -173,7 +205,19 @@ public class SearchLocation implements Serializable {
 	public void setTagline(String tagline) {
 		this.tagline = tagline;
 	}
-
+	public String getImpressionId() {
+		return impressionId;
+	}
+	public void setImpressionId(String impressionId) {
+		this.impressionId = impressionId;
+	}
+	public List<SearchTag> getTags() {
+		return tags;
+	}
+	public void setTags(List<SearchTag> tags) {
+		this.tags = tags;
+	}
+	
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);

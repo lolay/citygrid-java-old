@@ -36,12 +36,14 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@XmlAttribute(name="nameid",required=true)
+	@XmlAttribute(name="name_id",required=true)
 	private Integer nameId = null;
 	@XmlAttribute(name="name",required=true)
 	private String name = null;
-	@XmlAttribute(name="parentid")
+	@XmlAttribute(name="parent_id")
 	private Integer parentId = null;
+	@XmlAttribute(name="parent",required=true)
+	private String parent = null;
 	@XmlElement(name="group",required=true)
 	private Group group = null;
 	
@@ -62,6 +64,12 @@ public class Category implements Serializable {
 	}
 	public void setParentId(Integer parentId) {
 		this.parentId = parentId;
+	}
+	public String getParent() {
+		return parent;
+	}
+	public void setParent(String parent) {
+		this.parent = parent;
 	}
 	public Group getGroup() {
 		return group;

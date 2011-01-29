@@ -37,11 +37,13 @@ public class Region implements Serializable {
 
 	@XmlAttribute(name="type",required=true)
 	private String type = null;
+	@XmlAttribute(name="name",required=true)
+	private String name = null;
 	@XmlElement(name="latitude",required=true)
 	private Double latitude = null;
 	@XmlElement(name="longitude",required=true)
 	private Double longitude = null;
-	@XmlElement(name="defaultradius",required=true)
+	@XmlElement(name="default_radius",required=true)
 	private Float defaultRadius = null;
 	
 	public String getType() {
@@ -49,6 +51,12 @@ public class Region implements Serializable {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public Double getLatitude() {
 		return latitude;

@@ -34,7 +34,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class Group implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@XmlAttribute(name="groupid",required=true)
+	@XmlAttribute(name="group_id",required=true)
 	private Integer groupId = null;
 	@XmlAttribute(name="name",required=true)
 	private String name = null;

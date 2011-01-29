@@ -30,24 +30,23 @@ import com.lolay.citygrid.InvokerException;
 import junit.framework.TestCase;
 
 public class SearchIntegration extends TestCase {
-	private static final Log testLocationsLog = LogFactory.getLog(SearchIntegration.class.getName() + ".testLocations");
-	private static final Log testTagsLog = LogFactory.getLog(SearchIntegration.class.getName() + ".testTags");
-	private static final Log testLocationsCorrectionLog = LogFactory.getLog(SearchIntegration.class.getName() + ".testLocationsCorrection");
-	private static final Log testEventsLog = LogFactory.getLog(SearchIntegration.class.getName() + ".testEvents");
+	private static final Log testWhereLog = LogFactory.getLog(SearchIntegration.class.getName() + ".testWhere");
+	private static final Log testWhereCorrectionLog = LogFactory.getLog(SearchIntegration.class.getName() + ".testWhereCorrection");
 	private static final Log testErrorsLog = LogFactory.getLog(SearchIntegration.class.getName() + ".testErrors");
+	private static final Log testLatLonLog = LogFactory.getLog(SearchIntegration.class.getName() + ".testLatLon");
 	private static final String baseUrl = "http://api.citygridmedia.com";
 	
-	public void testLocations() throws Exception {
-		Log log = testLocationsLog;
+	public void testWhere() throws Exception {
+		Log log = testWhereLog;
 		log.trace("ENTER");
-		SearchClient searchProxy = new ClientFactory(baseUrl, null).getSearch();
+		SearchClient searchProxy = new ClientFactory(baseUrl).getSearch();
 		
 		SearchInvoker search = SearchInvoker.builder().publisher("acme")
-			.type(SearchType.RESTAURANT).where("90069").placement("junit").build();
+			.type(SearchType.RESTAURANT).where("90069").placement("junit").histograms(true).build();
 		SearchResults results = null;
 		try {
 			long start = System.currentTimeMillis();
-			results = search.locations(searchProxy);
+			results = search.where(searchProxy);
 			long end = System.currentTimeMillis();
 			log.trace(String.format("Location search took %s ms", end - start));
 		} catch (WebApplicationException e) {
@@ -58,7 +57,7 @@ public class SearchIntegration extends TestCase {
 		assertNotNull(results.getTotalHits());
 		assertTrue(results.getTotalHits() > 0);
 		assertNull(results.getDidYouMean());
-		assertEquals((Integer) 1, results.getFirst());
+		assertEquals((Integer) 1, results.getFirstHit());
 		assertEquals((Integer) 20, results.getLastHit());
 		assertNotNull(results.getUri());
 		assertNotNull(results.getRegions());
@@ -76,6 +75,7 @@ public class SearchIntegration extends TestCase {
 		boolean imageChecked = false;
 		for (SearchLocation location : results.getLocations()) {
 			assertNotNull(location.getId());
+			assertNotNull(location.getImpressionId());
 			assertNotNull(location.getFeatured());
 			assertNotNull(location.getName());
 			assertNotNull(location.getAddress());
@@ -98,8 +98,6 @@ public class SearchIntegration extends TestCase {
 		assertTrue(ratingChecked);
 		assertTrue(imageChecked);
 		
-		assertNull(results.getEngagements());
-		
 		assertNotNull(results.getHistograms());
 		assertTrue(results.getHistograms().size() > 0);
 		for (Histogram histogram : results.getHistograms()) {
@@ -115,37 +113,16 @@ public class SearchIntegration extends TestCase {
 		}
 	}
 	
-	public void testTags() throws Exception {
-		Log log = testTagsLog;
+	public void testWhereCorrection() throws Exception {
+		Log log = testWhereCorrectionLog;
 		log.trace("ENTER");
-		SearchClient searchProxy = new ClientFactory(baseUrl, null).getSearch();
-		
-		SearchInvoker search = SearchInvoker.builder().publisher("acme")
-			.what("*").addTags(1726).addTags(1722).addTags(110)
-			.where("90069").placement("junit").build();
-		SearchResults results = null;
-		try {
-			long start = System.currentTimeMillis();
-			results = search.locations(searchProxy);
-			long end = System.currentTimeMillis();
-			log.trace(String.format("Location search took %s ms", end - start));
-		} catch (WebApplicationException e) {
-			log.error(e.getResponse(), e);
-			fail();
-		}
-		assertNotNull(results);
-	}
-	
-	public void testLocationsCorrection() throws Exception {
-		Log log = testLocationsCorrectionLog;
-		log.trace("ENTER");
-		SearchClient searchProxy = new ClientFactory(baseUrl, null).getSearch();
+		SearchClient searchProxy = new ClientFactory(baseUrl).getSearch();
 		
 		SearchInvoker search = SearchInvoker.builder().publisher("acme")
 			.what("computr parts").where("90069").placement("junit").build();
 		SearchResults results = null;
 		try {
-			results = search.locations(searchProxy);
+			results = search.where(searchProxy);
 		} catch (WebApplicationException e) {
 			log.error(e.getResponse(), e);
 			fail();
@@ -154,7 +131,7 @@ public class SearchIntegration extends TestCase {
 		assertNotNull(results.getTotalHits());
 		assertEquals((Integer) 0, results.getTotalHits());
 		assertNotNull(results.getDidYouMean());
-		assertEquals((Integer) 1, results.getFirst());
+		assertEquals((Integer) 1, results.getFirstHit());
 		assertEquals((Integer) 0, results.getLastHit());
 		assertNotNull(results.getUri());
 		assertNotNull(results.getRegions());
@@ -167,19 +144,40 @@ public class SearchIntegration extends TestCase {
 		}
 	}
 	
-	public void testEvents() throws Exception {
-		Log log = testEventsLog;
+	public void testError() throws Exception {
+		Log log = testErrorsLog;
 		log.trace("ENTER");
-		SearchClient searchProxy = new ClientFactory(baseUrl, null).getSearch();
+		SearchClient searchProxy = new ClientFactory(baseUrl).getSearch();
 		
 		SearchInvoker search = SearchInvoker.builder().publisher("acme")
-			.type(SearchType.MOVIE).where("90069").placement("junit").build();
+			.type(SearchType.RESTAURANT).where("abcdefghijklmnopqrstuvwxyz").placement("junit").build();
+		try {
+			search.where(searchProxy);
+			fail();
+		} catch (InvokerException e) {
+			assertNotNull(e.getErrorCodes());
+			assertEquals(1, e.getErrorCodes().size());
+			assertEquals(ErrorCode.GEOCODE_FAILURE, e.getErrorCodes().get(0));
+		} catch (WebApplicationException e) {
+			log.error(e.getResponse(), e);
+			fail();
+		}
+	}
+	
+	public void testLatLon() throws Exception {
+		Log log = testLatLonLog;
+		log.trace("ENTER");
+		SearchClient searchProxy = new ClientFactory(baseUrl).getSearch();
+		
+		SearchInvoker search = SearchInvoker.builder().publisher("acme")
+			.type(SearchType.RESTAURANT).latitude(34.0522222D).longitude(-118.2427778D)
+			.placement("junit").histograms(true).build();
 		SearchResults results = null;
 		try {
 			long start = System.currentTimeMillis();
-			results = search.events(searchProxy);
+			results = search.latlon(searchProxy);
 			long end = System.currentTimeMillis();
-			log.trace(String.format("Events search took %s ms", end - start));
+			log.trace(String.format("Location search took %s ms", end - start));
 		} catch (WebApplicationException e) {
 			log.error(e.getResponse(), e);
 			fail();
@@ -188,12 +186,10 @@ public class SearchIntegration extends TestCase {
 		assertNotNull(results.getTotalHits());
 		assertTrue(results.getTotalHits() > 0);
 		assertNull(results.getDidYouMean());
-		assertEquals((Integer) 1, results.getFirst());
-		assertNotNull(results.getLastHit());
-		assertTrue(results.getLastHit() > 0);
+		assertEquals((Integer) 1, results.getFirstHit());
+		assertEquals((Integer) 20, results.getLastHit());
 		assertNotNull(results.getUri());
 		assertNotNull(results.getRegions());
-		assertTrue(results.getRegions().size() > 0);
 		for (Region region : results.getRegions()) {
 			assertNotNull(region.getType());
 			assertNotNull(region.getLatitude());
@@ -201,25 +197,34 @@ public class SearchIntegration extends TestCase {
 			assertNotNull(region.getDefaultRadius());
 		}
 		
-		assertNull(results.getLocations());
-		
-		assertNotNull(results.getEngagements());
-		assertTrue(results.getEngagements().size() > 0);
-		for (Engagement engagement : results.getEngagements()) {
-			assertNotNull(engagement.getEvent());
-			Event event = engagement.getEvent();
-			assertNotNull(event.getId());
-			assertNotNull(event.getName());
-			assertNotNull(event.getPerformances());
-			assertNotNull(event.getUserReviewCount());
-			
-			EngagementLocation location = engagement.getLocation();
+		assertNotNull(results.getLocations());
+		assertTrue(results.getLocations().size() > 0);
+		boolean ratingChecked = false;
+		boolean imageChecked = false;
+		for (SearchLocation location : results.getLocations()) {
 			assertNotNull(location.getId());
+			assertNotNull(location.getImpressionId());
+			assertNotNull(location.getFeatured());
 			assertNotNull(location.getName());
 			assertNotNull(location.getAddress());
 			assertNotNull(location.getLatitude());
 			assertNotNull(location.getLongitude());
+			assertNotNull(location.getProfile());
+			assertNotNull(location.getHasVideo());
+			assertNotNull(location.getHasOffers());
+			assertNotNull(location.getUserReviewCount());
+			assertNotNull(location.getSampleCategories());
+			if (location.getId().equals(46312464)) {
+				assertNotNull(location.getRating());
+				ratingChecked = true;
+			}
+			if (location.getId().equals(46312464)) {
+				assertNotNull(location.getImage());
+				imageChecked = true;
+			}
 		}
+		assertTrue(ratingChecked);
+		assertTrue(imageChecked);
 		
 		assertNotNull(results.getHistograms());
 		assertTrue(results.getHistograms().size() > 0);
@@ -233,26 +238,6 @@ public class SearchIntegration extends TestCase {
 				assertTrue(item.getCount() > 0);
 				assertNotNull(item.getUri());
 			}
-		}
-	}
-	
-	public void testError() throws Exception {
-		Log log = testErrorsLog;
-		log.trace("ENTER");
-		SearchClient searchProxy = new ClientFactory(baseUrl, null).getSearch();
-		
-		SearchInvoker search = SearchInvoker.builder().publisher("acme")
-			.type(SearchType.RESTAURANT).where("abcdefghijklmnopqrstuvwxyz").placement("junit").build();
-		try {
-			search.locations(searchProxy);
-			fail();
-		} catch (InvokerException e) {
-			assertNotNull(e.getErrorCodes());
-			assertEquals(1, e.getErrorCodes().size());
-			assertEquals(ErrorCode.GEOCODE_FAILURE, e.getErrorCodes().get(0));
-		} catch (WebApplicationException e) {
-			log.error(e.getResponse(), e);
-			fail();
 		}
 	}
 }

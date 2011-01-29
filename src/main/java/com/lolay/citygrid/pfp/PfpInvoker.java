@@ -19,8 +19,6 @@
 package com.lolay.citygrid.pfp;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -33,6 +31,7 @@ import com.lolay.citygrid.Format;
 import com.lolay.citygrid.InvokerException;
 
 /**
+ * @see http://docs.citygridmedia.com/display/citygridv2/Custom+Ads+API
  * @see PfpClient
  */
 public class PfpInvoker extends BaseInvoker {
@@ -44,7 +43,7 @@ public class PfpInvoker extends BaseInvoker {
 	private String where = null;
 	private Double latitude = null;
 	private Double longitude = null;
-	private Float radius = null;
+	private Integer radius = null;
 	private String publisher = null;
 	private String clientIp = null;
 	private BannerSize size = null;
@@ -52,8 +51,7 @@ public class PfpInvoker extends BaseInvoker {
 	private Integer max = null;
 	private String placement = null;
 	private Boolean rotation = null;
-	private Set<Integer> tags = null;
-	private Set<Integer> geographies = null;
+	private String impressionId = null;
 	
 	public Long getWarningLimit() {
 		return warningLimit;
@@ -85,10 +83,10 @@ public class PfpInvoker extends BaseInvoker {
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
-	public Float getRadius() {
+	public Integer getRadius() {
 		return radius;
 	}
-	public void setRadius(Float radius) {
+	public void setRadius(Integer radius) {
 		this.radius = radius;
 	}
 	public String getPublisher() {
@@ -133,48 +131,11 @@ public class PfpInvoker extends BaseInvoker {
 	public void setRotation(Boolean rotation) {
 		this.rotation = rotation;
 	}
-	public Set<Integer> getTags() {
-		return tags;
+	public String getImpressionId() {
+		return impressionId;
 	}
-	public void setTags(Set<Integer> tags) {
-		this.tags = tags;
-	}
-	public String getTagsString() {
-		String tags = null;
-		if (getTags() != null && ! getTags().isEmpty()) {
-			StringBuilder builder = new StringBuilder();
-			for (Integer tag : getTags()) {
-				if (builder.length() > 0) {
-					builder.append(" ");
-				}
-				builder.append(tag);
-			}
-			tags = builder.toString();
-		}
-		return tags;
-	}
-	public Set<Integer> getGeographies() {
-		return geographies;
-	}
-	public void setGeographies(Set<Integer> geographies) {
-		this.geographies = geographies;
-	}
-	public String getGeographiesString() {
-		String geographies = null;
-		if (getGeographies() != null && ! getGeographies().isEmpty()) {
-			StringBuilder builder = new StringBuilder();
-			for (Integer geography : getGeographies()) {
-				if (builder.length() > 0) {
-					builder.append(" ");
-				}
-				builder.append(geography);
-			}
-			geographies = builder.toString();
-			if (log.isDebugEnabled()) {
-				log.debug(String.format("geographies=%s", tags));
-			}
-		}
-		return geographies;
+	public void setImpressionId(String impressionId) {
+		this.impressionId = impressionId;
 	}
 	
 	@Override
@@ -190,12 +151,12 @@ public class PfpInvoker extends BaseInvoker {
 	   return ToStringBuilder.reflectionToString(this);
 	}
 	
-	public PfpResults query(PfpClient client) throws InvokerException {
+	public PfpResults where(PfpClient client) throws InvokerException {
 		PfpResults results;
 		
 		Long start = System.currentTimeMillis();
 		
-		results = parseResults(PfpResults.class, client.query(getWhat(), getWhere(), getTagsString(), getGeographiesString(), getClientIp(), getPublisher(), Format.XML, getMax(), getPlacement()));
+		results = parseResults(PfpResults.class, client.where(getWhat(), getWhere(), getClientIp(), getRadius(), getImpressionId(), getPublisher(), getMax(), getPlacement()));
 		
 		Long end = System.currentTimeMillis();
 		Long diff = end - start;
@@ -209,12 +170,12 @@ public class PfpInvoker extends BaseInvoker {
 		return results;
 	}
 	
-	public PfpResults location(PfpClient client) throws InvokerException {
+	public PfpResults latlon(PfpClient client) throws InvokerException {
 		PfpResults results;
 		
 		Long start = System.currentTimeMillis();
 		
-		results = parseResults(PfpResults.class, client.location(getWhat(), getLatitude(), getLongitude(), getRadius(), getTagsString(), getClientIp(), getPublisher(), Format.XML, getMax(), getPlacement()));
+		results = parseResults(PfpResults.class, client.latlon(getWhat(), getClientIp(), getLatitude(), getLongitude(), getRadius(), getImpressionId(), getPublisher(), getMax(), getPlacement()));
 		
 		Long end = System.currentTimeMillis();
 		Long diff = end - start;
@@ -254,8 +215,7 @@ public class PfpInvoker extends BaseInvoker {
 			.latitude(prototype.getLatitude()).longitude(prototype.getLongitude()).radius(prototype.getRadius())
 			.publisher(prototype.getPublisher()).clientIp(prototype.getClientIp()).size(prototype.getSize())
 			.theme(prototype.getTheme()).max(prototype.getMax()).placement(prototype.getPlacement())
-			.rotation(prototype.getRotation()).tags(prototype.getTags() == null ? null : new HashSet<Integer>(prototype.getTags()))
-			.geographies(prototype.getGeographies() == null ? null : new HashSet<Integer>(prototype.getGeographies()));
+			.rotation(prototype.getRotation()).impressionId(prototype.getImpressionId());
 	}
 
 	public static Builder builder() {
@@ -293,7 +253,7 @@ public class PfpInvoker extends BaseInvoker {
 			return this;
 		}
 		
-		public Builder radius(Float radius) {
+		public Builder radius(Integer radius) {
 			instance.setRadius(radius);
 			return this;
 		}
@@ -333,36 +293,11 @@ public class PfpInvoker extends BaseInvoker {
 			return this;
 		}
 		
-		public Builder tags(Set<Integer> tags) {
-			instance.setTags(tags);
+		public Builder impressionId(String impressionId) {
+			instance.setImpressionId(impressionId);
 			return this;
 		}
-		
-		public Builder addTag(Integer tag) {
-			Set<Integer> tags = instance.getTags();
-			if (tags == null) {
-				tags = new HashSet<Integer>(3);
-				instance.setTags(tags);
-			}
-			tags.add(tag);
-			return this;
-		}
-		
-		public Builder geographies(Set<Integer> geographies) {
-			instance.setGeographies(geographies);
-			return this;
-		}
-		
-		public Builder addGeography(Integer geography) {
-			Set<Integer> geographies = instance.getGeographies();
-			if (geographies == null) {
-				geographies = new HashSet<Integer>(3);
-				instance.setTags(geographies);
-			}
-			geographies.add(geography);
-			return this;
-		}
-		
+
 		public PfpInvoker build() {
 			if (log.isDebugEnabled()) {
 				log.debug(String.format("PfpInvoker=%s", instance));

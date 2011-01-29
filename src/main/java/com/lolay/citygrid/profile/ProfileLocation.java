@@ -41,6 +41,8 @@ public class ProfileLocation implements Serializable {
 	private Integer id = null;
 	@XmlElement(name="reference_id",required=true)
 	private Integer referenceId = null;
+	@XmlElement(name="impression_id",required=true)
+	private String impressionId = null;
 	@XmlElement(name="display_ad",required=true)
 	private Boolean displayAd = null;
 	@XmlElement(name="infousa_id",required=true)
@@ -72,9 +74,9 @@ public class ProfileLocation implements Serializable {
 	@XmlElementWrapper(name="attributes")
 	@XmlElement(name="attribute")
 	private List<Attribute> attributes = null;
-	@XmlElement(name="businessHours")
+	@XmlElement(name="business_hours",nillable=true)
 	private String businessHours = null;
-	@XmlElement(name="parking")
+	@XmlElement(name="parking",nillable=true)
 	private String parking = null;
 	@XmlElementWrapper(name="tips")
 	@XmlElement(name="tip")
@@ -99,6 +101,12 @@ public class ProfileLocation implements Serializable {
 	}
 	public void setReferenceId(Integer referenceId) {
 		this.referenceId = referenceId;
+	}
+	public String getImpressionId() {
+		return impressionId;
+	}
+	public void setImpressionId(String impressionId) {
+		this.impressionId = impressionId;
 	}
 	public Boolean getDisplayAd() {
 		return displayAd;

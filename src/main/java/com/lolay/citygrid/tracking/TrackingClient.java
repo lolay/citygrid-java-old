@@ -27,10 +27,10 @@ import javax.ws.rs.core.MediaType;
 
 
 /**
- * @see http://developer.citygridmedia.com/docs/tracking
+ * @see http://docs.citygridmedia.com/display/citygridv2/Places+that+Pay
  * @see TrackingInvoker
  */
-@Path("/tracker")
+@Path("/ads/tracker")
 @Consumes(MediaType.TEXT_PLAIN)
 @Produces("image/gif")
 public interface TrackingClient {
@@ -42,6 +42,9 @@ public interface TrackingClient {
 	public static final String MOBILE_TYPE = "mobile_type";
 	public static final String MUID = "muid";
 	public static final String UA = "ua";
+	public static final String IMPRESSION_ID = "i";
+	public static final String SOURCE_PHONE = "sourcePhone";
+	public static final String DIAL_PHONE = "dialPhone";
 	
 	@GET
 	@Path("/imp")
@@ -50,8 +53,11 @@ public interface TrackingClient {
 			@QueryParam(LISTING_ID) Integer listingId,
 			@QueryParam(REFERENCE_ID) Integer referenceId,
 			@QueryParam(PUBLISHER) String publisher,
+			@QueryParam(IMPRESSION_ID) String impressionId,
 			@QueryParam(PLACEMENT) String placement,
 			@QueryParam(MOBILE_TYPE) String mobileType,
 			@QueryParam(MUID) String muid,
+			@QueryParam(SOURCE_PHONE) String sourcePhone,
+			@QueryParam(DIAL_PHONE) String dialPhone,
 			@QueryParam(UA) String ua);
 }
