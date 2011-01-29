@@ -43,7 +43,7 @@ public class CustomAdsIntegration extends TestCase {
 		final Log log = testBannerLog;
 		log.trace("ENTER");
 		
-		CustomAdsClient pfpProxy = new ClientFactory(baseUrl).getPfp();
+		CustomAdsClient pfpProxy = new ClientFactory(baseUrl).getCustomAds();
 		
 		CustomAdsInvoker pfp = CustomAdsInvoker.builder().what("restaurant").where("90069").publisher("citysearch").rotation(true).build();
 		BannerResults results = null;
@@ -72,7 +72,7 @@ public class CustomAdsIntegration extends TestCase {
 		final Log log = testWhereLog;
 		log.trace("ENTER");
 		
-		CustomAdsClient pfpProxy = new ClientFactory(baseUrl).getPfp();
+		CustomAdsClient pfpProxy = new ClientFactory(baseUrl).getCustomAds();
 		
 		CustomAdsInvoker pfp = CustomAdsInvoker.builder().what("restaurant").where("90069").publisher("citysearch").build();
 		CustomAdsResults results = null;
@@ -112,7 +112,7 @@ public class CustomAdsIntegration extends TestCase {
 		final Log log = testLatLonLog;
 		log.trace("ENTER");
 		
-		CustomAdsClient pfpProxy = new ClientFactory(baseUrl).getPfp();
+		CustomAdsClient pfpProxy = new ClientFactory(baseUrl).getCustomAds();
 		
 		CustomAdsInvoker pfp = CustomAdsInvoker.builder().what("restaurant").latitude(34.0522222D).longitude(-118.2427778D).radius(50).publisher("citysearch").build();
 		CustomAdsResults results = null;

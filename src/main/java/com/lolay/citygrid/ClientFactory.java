@@ -28,9 +28,9 @@ import com.lolay.citygrid.content.places.search.SearchClient;
 public class ClientFactory {
 	private String apiBaseUrl = null;
 	private SearchClient search = null;
-	private DetailClient profile = null;
+	private DetailClient detail = null;
 	private TrackingClient tracking = null;
-	private CustomAdsClient pfp = null;
+	private CustomAdsClient customAds = null;
 	
 	public ClientFactory(String apiBaseUrl) {
 		this.apiBaseUrl = apiBaseUrl;
@@ -51,11 +51,11 @@ public class ClientFactory {
 		return search;
 	}
 	
-	public synchronized DetailClient getProfile() {
-		if (profile == null) {
-			profile = getApiResource(DetailClient.class);
+	public synchronized DetailClient getDetail() {
+		if (detail == null) {
+			detail = getApiResource(DetailClient.class);
 		}
-		return profile;
+		return detail;
 	}
 	
 	public synchronized TrackingClient getTracking() {
@@ -65,10 +65,10 @@ public class ClientFactory {
 		return tracking;
 	}
 	
-	public synchronized CustomAdsClient getPfp() {
-		if (pfp == null) {
-			pfp = getPfpResource(CustomAdsClient.class);
+	public synchronized CustomAdsClient getCustomAds() {
+		if (customAds == null) {
+			customAds = getPfpResource(CustomAdsClient.class);
 		}
-		return pfp;
+		return customAds;
 	}
 }
