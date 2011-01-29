@@ -16,19 +16,36 @@
  * specific language governing permissions and limitations
  * under the License.    
  */
-package com.lolay.citygrid;
+package com.lolay.citygrid.ads.tracking;
 
-import com.lolay.citygrid.content.places.search.SearchClient;
-
-import junit.framework.TestCase;
-
-public class ClientFactoryTest extends TestCase {
-	public void testSearch() throws Exception {
-		ClientFactory factory = new ClientFactory("http://api.citygridmedia.com");
-		SearchClient search1 = factory.getSearch();
-		assertNotNull(search1);
-		SearchClient search2 = factory.getSearch();
-		assertNotNull(search2);
-		assertSame(search1, search2);
+public enum TrackingActionTarget {
+	LISTING_PROFILE,
+	CLICK_TO_CALL,
+	LISTING_PROFILE_PRINT,
+	LISTING_WEBSITE,
+	LISTING_REVIEW,
+	WRITE_REVIEW,
+	LISTING_MAP,
+	LISTING_DRIVING_DIRECTION,
+	LISTING_MAP_PRINT,
+	SEND_LISTING_EMAIL,
+	SEND_LISTING_PHONE,
+	SEND_LISTING_GPS,
+	OFFER,
+	OFFER_PRINT,
+	LISTING_REQUEST_OFFER,
+	PARTNER_MENU,
+	PARTNER_RESERVATION,
+	LISTING_PHOTO,
+	UPLOAD_LISTING_PHOTO,
+	LISTING_BLOG,
+	LISTING_FORUMS,
+	LISTING_NEWSLETTER,
+	LISTING_VOTE,
+	LISTING_CORRECTION,
+	LISTING_BOOKMARK;
+	
+	public String toString() {
+		return super.toString().toLowerCase();
 	}
 }

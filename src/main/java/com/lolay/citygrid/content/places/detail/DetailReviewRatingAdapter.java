@@ -16,19 +16,22 @@
  * specific language governing permissions and limitations
  * under the License.    
  */
-package com.lolay.citygrid;
+package com.lolay.citygrid.content.places.detail;
 
-import com.lolay.citygrid.content.places.search.SearchClient;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-import junit.framework.TestCase;
+public class DetailReviewRatingAdapter extends XmlAdapter<String,Integer> {
+	@Override
+	public Integer unmarshal(String string) throws Exception {
+		if (string == null || string.isEmpty() || string.equalsIgnoreCase("NA")) {
+			return null;
+		}
+		
+		return Integer.parseInt(string);
+	}
 
-public class ClientFactoryTest extends TestCase {
-	public void testSearch() throws Exception {
-		ClientFactory factory = new ClientFactory("http://api.citygridmedia.com");
-		SearchClient search1 = factory.getSearch();
-		assertNotNull(search1);
-		SearchClient search2 = factory.getSearch();
-		assertNotNull(search2);
-		assertSame(search1, search2);
+	@Override
+	public String marshal(Integer integer) throws Exception {
+		return integer.toString();
 	}
 }

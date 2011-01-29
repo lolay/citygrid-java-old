@@ -16,19 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.    
  */
-package com.lolay.citygrid;
+package com.lolay.citygrid.content.places.detail;
 
-import com.lolay.citygrid.content.places.search.SearchClient;
-
-import junit.framework.TestCase;
-
-public class ClientFactoryTest extends TestCase {
-	public void testSearch() throws Exception {
-		ClientFactory factory = new ClientFactory("http://api.citygridmedia.com");
-		SearchClient search1 = factory.getSearch();
-		assertNotNull(search1);
-		SearchClient search2 = factory.getSearch();
-		assertNotNull(search2);
-		assertSame(search1, search2);
-	}
+public enum DetailImageType {
+	WEBSITE_THUMBNAIL,
+	GENERIC_IMAGE
 }

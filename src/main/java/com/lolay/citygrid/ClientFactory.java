@@ -20,17 +20,17 @@ package com.lolay.citygrid;
 
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 
-import com.lolay.citygrid.pfp.PfpClient;
-import com.lolay.citygrid.profile.ProfileClient;
-import com.lolay.citygrid.search.SearchClient;
-import com.lolay.citygrid.tracking.TrackingClient;
+import com.lolay.citygrid.ads.custom.CustomAdsClient;
+import com.lolay.citygrid.ads.tracking.TrackingClient;
+import com.lolay.citygrid.content.places.detail.DetailClient;
+import com.lolay.citygrid.content.places.search.SearchClient;
 
 public class ClientFactory {
 	private String apiBaseUrl = null;
 	private SearchClient search = null;
-	private ProfileClient profile = null;
+	private DetailClient profile = null;
 	private TrackingClient tracking = null;
-	private PfpClient pfp = null;
+	private CustomAdsClient pfp = null;
 	
 	public ClientFactory(String apiBaseUrl) {
 		this.apiBaseUrl = apiBaseUrl;
@@ -51,9 +51,9 @@ public class ClientFactory {
 		return search;
 	}
 	
-	public synchronized ProfileClient getProfile() {
+	public synchronized DetailClient getProfile() {
 		if (profile == null) {
-			profile = getApiResource(ProfileClient.class);
+			profile = getApiResource(DetailClient.class);
 		}
 		return profile;
 	}
@@ -65,9 +65,9 @@ public class ClientFactory {
 		return tracking;
 	}
 	
-	public synchronized PfpClient getPfp() {
+	public synchronized CustomAdsClient getPfp() {
 		if (pfp == null) {
-			pfp = getPfpResource(PfpClient.class);
+			pfp = getPfpResource(CustomAdsClient.class);
 		}
 		return pfp;
 	}
