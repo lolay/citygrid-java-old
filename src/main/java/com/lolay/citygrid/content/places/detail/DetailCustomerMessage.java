@@ -45,7 +45,7 @@ public class DetailCustomerMessage implements Serializable {
 	@XmlJavaTypeAdapter(value=UriAdapter.class)
 	private URI attributionLogo = null;
 	@XmlAttribute(name="attribution_source")
-	private Integer attributionSource = null;
+	private String attributionSource = null;
 	@XmlValue
 	private String customerMessage = null;
 	
@@ -61,10 +61,10 @@ public class DetailCustomerMessage implements Serializable {
 	public void setAttributionLogo(URI attributionLogo) {
 		this.attributionLogo = attributionLogo;
 	}
-	public Integer getAttributionSource() {
+	public String getAttributionSource() {
 		return attributionSource;
 	}
-	public void setAttributionSource(Integer attributionSource) {
+	public void setAttributionSource(String attributionSource) {
 		this.attributionSource = attributionSource;
 	}
 	public String getCustomerMessage() {

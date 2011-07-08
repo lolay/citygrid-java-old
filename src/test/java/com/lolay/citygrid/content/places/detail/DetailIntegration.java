@@ -41,8 +41,8 @@ public class DetailIntegration extends TestCase {
 		log.trace("ENTER");
 		
 		DetailClient client = new ClientFactory(baseUrl).getDetail();
-		DetailInvoker invoker = DetailInvoker.builder().listingId(1).clientIp("127.0.0.1")
-			.publisher("acme").placement("junit").build();
+		DetailInvoker invoker = DetailInvoker.builder().listingId(10100230).clientIp("127.0.0.1")
+			.publisher("test").placement("search_page").build();
 		
 		DetailResults results = null;
 		try {
