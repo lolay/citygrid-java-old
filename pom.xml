@@ -24,7 +24,7 @@
 	<artifactId>citygrid</artifactId>
 	<packaging>jar</packaging>
 	<name>CityGrid Client</name>
-	<version>4-SNAPSHOT</version>
+	<version>4</version>
 
 	<scm>
 		<connection>scm:git:git://github.com/lolay/citygrid-java-old.git</connection>
