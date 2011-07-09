@@ -1,3 +1,5 @@
+3	2011-07-11	API Changes
+	a_ Fixed attribution_source string changes and other API mods:
 2	2010-12-06	Error Code Fix
 	a) Fixed error with not handling an Error Code of listing.not.found
 1	2010-12-05	Initial release
